@@ -1,0 +1,145 @@
+﻿@{ Layout = null;}
+@using BugTracker.Models
+
+@model ExtendedRegisterViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My Bug Tracker | Registration Page</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link href="~/Content/all.min.css" rel="stylesheet" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link href="~/Content/icheck-bootstrap.min.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link href="~/Content/adminlte.min.css" rel="stylesheet" />
+    <!-- Google Font: Source Sans Pro -->
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition register-page">
+    <div class="register-box">
+
+        @*<div class="register-logo">
+                <a href="Register/Account"><b>Admin</b>LTE</a>
+            </div>*@
+
+        <div class="card">
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">Registeras a new user</p>
+
+                @*@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.EditorFor(m => m.FirstName, new { @class = "form-control   ", placeholder = "First name",  })
+   
+                    @Html.EditorFor(m => m.LastName, new { htmlattributes = new { @class = "form-control   ", placeholder = "Last name", } })
+                    @Html.EditorFor(m => m.Email, new { htmlattributes = new { @class = "form-control   ", placeholder = "Email", } })
+                    @Html.EditorFor(m => m.Password, new { htmlattributes = new { @class = "form-control   ", placeholder = "Password", } })
+                    @Html.EditorFor(m => m.ConfirmPassword, new { htmlattributes = new { @class = "form-control   ", placeholder = "Confirm Password", } })
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">register</button>
+                    </div>
+                }*@
+            <form action="/Account/Register" method="post">
+                @Html.AntiForgeryToken()
+                <div class="input-group mb-3">
+                    <input type="text" name="FirstName" class="form-control" placeholder="First name">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" name="LastName" class="form-control" placeholder="Last name">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" name="DisplayName" class="form-control" placeholder="Display name">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="email" name="Email" class="form-control" placeholder="Email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" name="Password" class="form-control" placeholder="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" name="ConfirmPassword" class="form-control" placeholder="Retype password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                            <label for="agreeTerms">
+                                I agree to the <a href="#">terms</a>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+                <div class="social-auth-links text-center">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i>
+                        Sign up using Facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-danger">
+                        <i class="fab fa-google-plus mr-2"></i>
+                        Sign up using Google+
+                    </a>
+                </div>
+
+                @*<a href="login.html" class="text-center">I already have a membership</a>*@
+                @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "text-center", id = "loginLink" })
+            </div>
+            <!-- /.form-box -->
+        </div><!-- /.card -->
+    </div>
+    <!-- /.register-box -->
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Scripts/jquery.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+﻿
+@using BugTracker.ViewModel
+
+@model IEnumerable<CustomUserData>
+
+@{
+    ViewBag.Title = "Manage Roles";
+}
+
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">@ViewBag.Title</h1>
+                    </div><!-- /.col -->
+                    @*<div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard v2</li>
+                    </ol>
+                </div>*@<!-- /.col -->
+                </div><!-- /.row -->
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col">
+                            @Html.ListBox("UserIds")
+                        </div>
+                        <div class="col">
+                            @Html.DropDownList("RoleName", "- Select Role -")
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-outline-primary" style="width:100%">Manage Roles</button>
+                        </div>
+                    </div>
+                }
+            </div><!-- /.container-fluid -->
+
+            <hr />
+
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RoleName)
+                    </th>
+                    
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoleName)
+                        </td>
+                        
+                        @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>*@
+                    </tr>
+                }
+
+            </table>
+
+
+        </div>
+    </div>
+

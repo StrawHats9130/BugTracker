@@ -1,0 +1,68 @@
+﻿@using BugTracker.Models
+
+@model Project
+
+@{
+    ViewBag.Title = "ManageProjectLevelUsers";
+}
+
+
+
+<div class="content-wrapper">
+
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Manage Members for the @Model.Name project </h1>
+                    </div><!-- /.col -->
+                    @*<div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard v2</li>
+                </ol>
+            </div>*@<!-- /.col -->
+                </div><!-- /.row -->
+                @using (Html.BeginForm())
+                {
+                    @Html.Hidden("ProjectId", Model.Id);
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col">
+                            @Html.ListBox("UserIds")
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" value="true" name="addUser" class="btn btn-outline-dark" style="width:100%">Add Users</button>
+                        </div>
+                        <div class="col">
+                            <button type="submit" value="false" name="addUser" class="btn btn-outline-dark" style="width:100%">Remove Users</button>
+                        </div>
+                        @*<div class="col">
+                       vange Value to int add int btn NAme to parameters for method
+                    <button type="submit" value="true" name="addUser2" class="btn btn-outline-dark" style="width:100%">Remove Users</button>
+                </div>*@
+
+                    </div>
+                }
+            </div><!-- /.container-fluid -->
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+</div>

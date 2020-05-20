@@ -1,0 +1,196 @@
+﻿@model IEnumerable<BugTracker.Models.Ticket>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+    <div class="content-wrapper">
+        <h2>Index</h2>
+
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Developer")
+                </th>
+                <th>
+                    @Html.DisplayName("Project")
+                </th>
+                <th>
+                    @*// check End of Allison (maybe Video11) for how to display this as is and not hard coded string.drew says it. *@
+                    @Html.DisplayNameFor(model => model.Submitter.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayName("Priority")
+                </th>
+                <th>
+                    @Html.DisplayName("Status")
+                </th>
+                <th>
+                    @Html.DisplayName("Type")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Created)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Updated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsArchived)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Developer.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Project.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Submitter.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketTypeId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketStatusId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketPriorityId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Updated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsArchived)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+
+        <!-- TABLE: LATEST ORDERS -->
+        <div class="card">
+            <div class="card-header border-transparent">
+                <h3 class="card-title">Latest Orders</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table m-0">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Item</th>
+                                <th>Priority</th>
+                                <th>Popularity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="pages/examples/invoice.html">OR9842</a></td>
+                                <td>Call of Duty IV</td>
+                                <td><span class="badge badge-warning">Urgent</span></td>
+                                <td>
+                                    <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="pages/examples/invoice.html">OR1848</a></td>
+                                <td>Samsung Smart TV</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="pages/examples/invoice.html">OR7429</a></td>
+                                <td>iPhone 6 Plus</td>
+                                <td><span class="badge badge-danger">Delivered</span></td>
+                                <td>
+                                    <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="pages/examples/invoice.html">OR7429</a></td>
+                                <td>Samsung Smart TV</td>
+                                <td><span class="badge badge-info">Processing</span></td>
+                                <td>
+                                    <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="pages/examples/invoice.html">OR1848</a></td>
+                                <td>Samsung Smart TV</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="pages/examples/invoice.html">OR7429</a></td>
+                                <td>iPhone 6 Plus</td>
+                                <td><span class="badge badge-danger">Delivered</span></td>
+                                <td>
+                                    <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="pages/examples/invoice.html">OR9842</a></td>
+                                <td>Call of Duty IV</td>
+                                <td><span class="badge badge-success">Shipped</span></td>
+                                <td>
+                                    <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+                <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
+                <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+            </div>
+            <!-- /.card-footer -->
+        </div>
+        <!-- /.card -->
+    </div>
