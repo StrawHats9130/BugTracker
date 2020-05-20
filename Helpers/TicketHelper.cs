@@ -26,7 +26,6 @@ namespace BugTracker.Helpers
                     myTickets.AddRange(db.Tickets);
                     break;
                 case "PM":
-                    
                    // myTickets.AddRange(user.Projects.Where(p => p.IsArchived == false).SelectMany(p => p.Tickets));
                     myTickets.AddRange(db.Projects.Where(p => p.ProjectManagerId == userId).SelectMany(p => p.Tickets));
                     break;

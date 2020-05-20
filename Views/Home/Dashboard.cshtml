@@ -23,6 +23,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Description)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tickets)
+                </th>
 
                 <th></th>
             </tr>
@@ -36,10 +39,50 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
+                    <td>
+                        <nav class="mt-2">
+                            <!----> <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                <!-- Add icons to the links using the .nav-icon class
+                                with font-awesome or any other icon font library -->
+                                @if (item.Tickets.Count != 0)
+                                {
+                                    <li class="nav-item has-treeview ">
+                                        <a href="#" class="nav-link ">
+                                            <i class="nav-icon fas fa-ticket-alt"></i>
+                                            <p>
+                                                Tickets
+                                                @*<i class="right fas fa-ticket-alt"></i>*@
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            @foreach (var projName in item.Tickets)
+                                            {
+
+                                                <li class="nav-item">
+                                                    @*<a href="@Url.Action("Edit","Tickets")" class="nav-link ">*@
+                                                    @Html.ActionLink(" "+projName.Title, "Edit", "Tickets", new {projName.Id },  new { @class = "fas fa-monument nav-icon "})
+
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link ">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>No Tickets Assigned Yet</p>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                    </td>
 
                     <td>
                         @Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
-                        @Html.ActionLink("Edit Project", "Edit","Tickets", new { id = item.Id }) |
+                        @Html.ActionLink("Edit Project", "Edit", "Tickets", new { id = item.Id }) |
                         @Html.ActionLink("Create Ticket", "Create", "Ticket", new { projectId = item.ProjectManagerId })
 
                     </td>
