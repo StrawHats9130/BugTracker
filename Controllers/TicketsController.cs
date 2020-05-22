@@ -1,12 +1,12 @@
-﻿using BugTracker.Helpers;
+﻿
+
+using BugTracker.Helpers;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BugTracker.Models
@@ -19,8 +19,20 @@ namespace BugTracker.Models
         // GET: Tickets
         public ActionResult Index()
         {
-            var tickets = db.Tickets.Include(t => t.Developer).Include(t => t.Project).Include(t => t.Submitter);
-            return View(tickets.ToList());
+            //var tickets = db.Tickets.Include(t => t.Developer).Include(t => t.Project).Include(t => t.Submitter);
+            //return View(tickets.ToList());
+            var ticketIndexVMs = new List<TicketIndexViewModel>();
+            var allTickets = db.Tickets.ToList();
+            foreach (var ticket in allTickets)
+            {
+                ticketIndexVMs.Add(new TicketIndexViewModel
+                {
+                    Ticket = ticket,
+                    TicketStatus = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId)                    
+                });
+            }
+            
+            return View(ticketIndexVMs);
         }
 
         // GET: Tickets/Details/5
@@ -76,7 +88,7 @@ namespace BugTracker.Models
             if (ModelState.IsValid)
             {
                 ticket.SubmitterId = User.Identity.GetUserId();
-                ticket.TicketStatusId = db.TicketStatus.FirstOrDefault(t => t.Name == "Unassigned").Id;
+                ticket.TicketStatusId = db.TicketStatus.FirstOrDefault(t => t.Name == "New").Id;
                 ticket.Created = DateTime.Now;
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
@@ -94,7 +106,7 @@ namespace BugTracker.Models
 
 
 
-            ViewBag.SubmitterId = new SelectList(db.Users, "Id", "FirstName");
+            ViewBag.SubmitterId = new SelectList(db.Users, "Id", "Email");
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name");
             ViewBag.TicketStatusId = new SelectList(db.TicketStatus, "Id", "Name");
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name");
@@ -131,7 +143,7 @@ namespace BugTracker.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TickeStatusId,TicketPriorityId,SubmitterId,DeveloperId,Title,Description,Created,Updated,ISArchived")] Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketStatusId,TicketPriorityId,SubmitterId,DeveloperId,Title,Description,Created,IsArchived")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
@@ -139,19 +151,34 @@ namespace BugTracker.Models
                 //AsNoTracking() get a Memento(old version) Ticket object   
                 var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
 
+
+                ticket.Updated = DateTime.Now;
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
 
                 //now I can compair old ticket to new ticket
                 historyHelper.ManageHistoryRecordCreation(oldTicket, ticket);
 
-                return RedirectToAction("Index", "TicketHistories");
+                return RedirectToAction("Index", "Tickets");
             }
             ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName", ticket.DeveloperId);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
             ViewBag.SubmitterId = new SelectList(db.Users, "Id", "FirstName", ticket.SubmitterId);
             return View(ticket);
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SpecialEdit(int ticketId, int ticketStatusId)
+        {
+            var ticket = db.Tickets.Find(ticketId);
+            ticket.TicketStatusId = ticketStatusId;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
 
         // GET: Tickets/Delete/5
         public ActionResult Delete(int? id)

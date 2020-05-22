@@ -462,7 +462,7 @@ namespace BugTracker.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Dashboard", "Home");
+            return RedirectToAction("UserProfile", "Home");
         }
 
         //
@@ -519,7 +519,7 @@ namespace BugTracker.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Dashboard", "Home");
+            return RedirectToAction("UserProfile", "Home");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

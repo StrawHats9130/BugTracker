@@ -41,6 +41,34 @@ namespace BugTracker.Helpers
             return (myTickets);
         }
 
+        public List<Ticket> ListTicketsNotBelongingToUser()
+        {
+            var myTickets = new List<Ticket>();
+            // getting the user Id outside of a controller
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
+            var myRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
+            switch (myRole)
+            {
+                case "Admin":
+                    myTickets.AddRange(db.Tickets);
+                    break;
+                case "PM":
+                    // myTickets.AddRange(user.Projects.Where(p => p.IsArchived == false).SelectMany(p => p.Tickets));
+                    myTickets.AddRange(db.Projects.Where(p => p.ProjectManagerId != userId).SelectMany(p => p.Tickets));
+                    break;
+                case "Dev":
+                    myTickets.AddRange(db.Tickets.Where(t => t.IsArchived == false).Where(t => t.DeveloperId != userId));
+                    break;
+                case "Sub":
+                    myTickets.AddRange(db.Tickets.Where(t => t.IsArchived == false).Where(t => t.SubmitterId != userId));
+                    break;
+
+            }
+
+            return (myTickets);
+        }
+
         public List<Ticket> ListAllTickets()
         {
 

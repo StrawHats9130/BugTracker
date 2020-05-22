@@ -84,6 +84,6 @@ namespace BugTracker.Models
 
         public System.Data.Entity.DbSet<BugTracker.Models.TicketType> TicketTypes { get; set; }
 
-        public System.Data.Entity.DbSet<BugTracker.ViewModel.UserProfileViewModel> UserProfileViewModels { get; set; }
+       
     }
 }

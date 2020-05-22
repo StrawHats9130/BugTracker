@@ -1,26 +1,31 @@
-﻿@model IEnumerable<BugTracker.Models.Ticket>
+﻿@using BugTracker.Helpers
+
+@model IEnumerable<TicketIndexViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 
-    <div class="content-wrapper">
-        <h2>Index</h2>
+<div class="content-wrapper">
+    <h2>Index</h2>
 
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-        <table class="table">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <!-- original Scafold taable-->
+    <section>
+        @*<table class="table">
             <tr>
                 <th>
                     @Html.DisplayName("Developer")
                 </th>
                 <th>
-                    @Html.DisplayName("Project")
-                </th>
+                        @Html.DisplayName("Project")
+                    </th>
                 <th>
-                    @*// check End of Allison (maybe Video11) for how to display this as is and not hard coded string.drew says it. *@
-                    @Html.DisplayNameFor(model => model.Submitter.FirstName)
+                    // check End of Allison (maybe Video11) for how to display this as is and not hard coded string.drew says it.
+                    @Html.DisplayNameFor(model => model.Ticket.Submitter.FullName)
                 </th>
                 <th>
                     @Html.DisplayName("Priority")
@@ -29,22 +34,25 @@
                     @Html.DisplayName("Status")
                 </th>
                 <th>
+                    @Html.DisplayName("Text Status")
+                </th>
+                <th>
                     @Html.DisplayName("Type")
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Title)
+                    @Html.DisplayNameFor(model => model.Ticket.Title)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Description)
+                    @Html.DisplayNameFor(model => model.Ticket.Description)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Created)
+                    @Html.DisplayNameFor(model => model.Ticket.Created)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Updated)
+                    @Html.DisplayNameFor(model => model.Ticket.Updated)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IsArchived)
+                    @Html.DisplayNameFor(model => model.Ticket.IsArchived)
                 </th>
                 <th></th>
             </tr>
@@ -53,144 +61,165 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Developer.FirstName)
+                        @Html.DisplayFor(modelItem => item.Ticket.Developer.FirstName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Project.Name)
+                        @Html.DisplayFor(modelItem => item.Ticket.Project.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Submitter.FirstName)
+                        @Html.DisplayFor(modelItem => item.Ticket.Submitter.FirstName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.TicketTypeId)
+                        @Html.DisplayFor(modelItem => item.Ticket.TicketTypeId)
+                    </td>
+                    <td class="@colorHelper.GetStatusColorClass2(item.Ticket.TicketStatus.Name)">
+                        @Html.DisplayFor(modelItem => item.Ticket.TicketStatus.Name)
+                    </td>
+                    <td class="@colorHelper.GetStatusColorClass2(item.Ticket.TicketStatus.Name)">
+                        @using (Html.BeginForm("SpecialEdit", "Tickets"))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("TicketId", item.Ticket.Id)
+
+                            <div class=" row">
+                                <div class=" col">
+                                    @Html.DropDownList("TicketStatusId", item.TicketStatus)
+                                </div>
+                            </div>
+                            <div class=" row">
+                                <div class=" col">
+                                    <button type="submit" class="btn btn-outline-dark btn-sm">Save</button>
+                                </div>
+                            </div>
+
+                        }
+
+
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ticket.TicketPriorityId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.TicketStatusId)
+                        @Html.DisplayFor(modelItem => item.Ticket.Title)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.TicketPriorityId)
+                        @Html.DisplayFor(modelItem => item.Ticket.Description)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Title)
+                        @Html.DisplayFor(modelItem => item.Ticket.Created)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Description)
+                        @Html.DisplayFor(modelItem => item.Ticket.Updated)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Created)
+                        @Html.DisplayFor(modelItem => item.Ticket.IsArchived)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Updated)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsArchived)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        @if (User.IsInRole("Admin") || User.IsInRole("PM"))
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Ticket.Id })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Ticket.Id })
+                        }
+                        @Html.ActionLink("Details", "Details", new { id = item.Ticket.Id })
                     </td>
                 </tr>
             }
 
-        </table>
+        </table>*@
+    </section>
 
+    <!-- TABLE: LATEST ORDERS -->
+    <div class="card">
+        <div class="card-header border-transparent">
+            <h3 class="card-title">Current Tickets</h3>
 
-        <!-- TABLE: LATEST ORDERS -->
-        <div class="card">
-            <div class="card-header border-transparent">
-                <h3 class="card-title">Latest Orders</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                @*<button type="button" class="btn btn-tool" data-card-widget="remove">
                         <i class="fas fa-times"></i>
-                    </button>
-                </div>
+                    </button>*@
             </div>
+        </div>
 
-            <!-- /.card-header -->
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table m-0">
-                        <thead>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table m-0">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Ticket.Title)
+                            </th>
+                            <th>
+                                @Html.DisplayName("Developer")
+                            </th>
+                            <th> @Html.DisplayName("Status")</th>
+                            <th> @Html.DisplayName("Status")</th>
+                            <th> @Html.DisplayNameFor(model => model.Ticket.Created)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
                             <tr>
-                                <th>Order ID</th>
-                                <th>Item</th>
-                                <th>Priority</th>
-                                <th>Popularity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                                <td>Call of Duty IV</td>
-                                <td><span class="badge badge-warning">Urgent</span></td>
+                                <td> @Html.DisplayFor(modelItem => item.Ticket.Title)</td>
+                                <td> @Html.DisplayFor(modelItem => item.Ticket.Developer.FirstName)</td>
+                                <td><span class="badge badge-warning">@Html.DisplayFor(modelItem => item.Ticket.TicketStatus.Name)</span></td>
                                 <td>
-                                    <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                                    @using (Html.BeginForm("SpecialEdit", "Tickets"))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("TicketId", item.Ticket.Id)
+
+                                        <div class=" row">
+                                            <div class=" col">
+                                                @Html.DropDownList("TicketStatusId", item.TicketStatus)
+                                            </div>
+                                            <div class=" col">
+                                                <button type="submit" class="btn btn-outline-dark btn-sm">Save</button>
+                                            </div>
+                                        </div>
+
+
+                                    }
                                 </td>
+                                <td> @Html.DisplayFor(modelItem => item.Ticket.Created)</td>
+                                <td>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("PM"))
+                                    {
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.Ticket.Id })
+                                        @*@Html.ActionLink("Delete", "Delete", new { id = item.Ticket.Id })*@
+                                    }
+                                    | @Html.ActionLink("Details", "Details", new { id = item.Ticket.Id })
+                                </td>
+
                             </tr>
-                            <tr>
+                        }
+                        @*<tr>
                                 <td><a href="pages/examples/invoice.html">OR1848</a></td>
                                 <td>Samsung Smart TV</td>
                                 <td><span class="badge badge-warning">Pending</span></td>
                                 <td>
                                     <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                <td>iPhone 6 Plus</td>
-                                <td><span class="badge badge-danger">Delivered</span></td>
-                                <td>
-                                    <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                <td>Samsung Smart TV</td>
-                                <td><span class="badge badge-info">Processing</span></td>
-                                <td>
-                                    <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                                <td>Samsung Smart TV</td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                                <td>
-                                    <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                <td>iPhone 6 Plus</td>
-                                <td><span class="badge badge-danger">Delivered</span></td>
-                                <td>
-                                    <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                                <td>Call of Duty IV</td>
-                                <td><span class="badge badge-success">Shipped</span></td>
-                                <td>
-                                    <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.table-responsive -->
+                                <td></td>
+                            </tr>*@
+
+                    </tbody>
+                </table>
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer clearfix">
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.card-body -->
+        @*<div class="card-footer clearfix">
                 <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
                 <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
-            </div>
-            <!-- /.card-footer -->
-        </div>
-        <!-- /.card -->
+            </div>*@
+        <!-- /.card-footer -->
     </div>
+    <!-- /.card -->
+</div>
