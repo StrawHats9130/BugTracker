@@ -344,6 +344,7 @@
     <Content Include="Smpt.config" />
     <Content Include="Views\UserProfiles\EditProfile.cshtml" />
     <Content Include="Views\Home\UserProfile.cshtml" />
+    <None Include="Properties\PublishProfiles\YaremaBugTracker - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

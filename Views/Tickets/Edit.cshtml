@@ -1,11 +1,11 @@
 ﻿@model BugTracker.Models.Ticket
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Tickets";
 }
     <div class="content-wrapper">
 
-        <h2>Edit</h2>
+        <h2>Edit Tickets</h2>
 
 
         @using (Html.BeginForm())
@@ -13,12 +13,15 @@
             @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Ticket</h4>
+        <h4>@Model.Title</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.Created) 
+        @Html.HiddenFor(model => model.Created)
         @Html.HiddenFor(model => model.ProjectId)
+        @Html.HiddenFor(model => model.SubmitterId)
+
+
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.ProjectId, "ProjectId", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -55,7 +58,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SubmitterId, "SubmitterId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.SubmitterId)
+                @Html.DisplayFor(model => model.Submitter.FullName)
                 @Html.ValidationMessageFor(model => model.SubmitterId, "", new { @class = "text-danger" })
             </div>
         </div>
