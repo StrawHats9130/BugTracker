@@ -237,6 +237,12 @@
                                         <p>All Tickets</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Index","TicketComments")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>All Ticket Comments</p>
+                                    </a>
+                                </li>
 
                                 @if (User.IsInRole("Admin"))
                                 {
@@ -271,8 +277,9 @@
             </div>
             <!-- /.sidebar -->
         </aside>
-
+        <div class="content-wrapper">
         @RenderBody()
+        </div>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">

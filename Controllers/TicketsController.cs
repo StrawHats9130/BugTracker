@@ -11,12 +11,14 @@ using System.Web.Mvc;
 
 namespace BugTracker.Models
 {
+    [Authorize]
     public class TicketsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private ProjectsHelper projHelper = new ProjectsHelper();
         private HistoryHelper historyHelper = new HistoryHelper();
         // GET: Tickets
+        
         public ActionResult Index()
         {
             //var tickets = db.Tickets.Include(t => t.Developer).Include(t => t.Project).Include(t => t.Submitter);
