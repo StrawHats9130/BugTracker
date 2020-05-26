@@ -77,41 +77,102 @@
                             <!-- /.col -->
                         </div>
                     </form>
+                    <div class="row p-2">
+                        <div class="col">
+                            <div class="row p-2 text-center ">
+                                <div class=" col">
+                                    Choose a DemoUser to test functuality of each user without having to create an account.
+                                </div>
+                            </div>
+                            <div class="row p-2 text-center ">
+                                <div class=" col">
+                                    @*Log in as a admin demo user*@
+                                    @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken();
+                                        @Html.Hidden("emailKey", "DemoAdminEmail")
 
-                    <div class="social-auth-links text-center mb-3">
-                        <p>- OR -</p>
-                        <a href="#" class="btn btn-block btn-primary">
-                            <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                        </a>
-                        <a href="#" class="btn btn-block btn-danger">
-                            <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                        </a>
+                                        <button type="submit" class="btn btn-outline-primary" style="width:100%">Demo Admin</button>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row p-2 text-center ">
+                                <div class=" col">
+                                    @*Log in as a admin demo user*@
+                                    @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken();
+                                        @Html.Hidden("emailKey", "DemoSubEmail")
+
+                                        <button type="submit" class="btn btn-outline-primary" style="width:100%">Demo Submitter</button>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row p-2 text-center ">
+                                <div class=" col">
+                                    @*Log in as a admin demo user*@
+                                    @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken();
+                                        @Html.Hidden("emailKey", "DemoDevEmail")
+
+                                        <button type="submit" class="btn btn-outline-primary" style="width:100%">Demo Developer</button>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row p-2 text-center ">
+                                <div class=" col">
+                                    @*Log in as a admin demo user*@
+                                    @using (Html.BeginForm("DemoLoginAsync", "Account", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken();
+                                        @Html.Hidden("emailKey", "DemoPMEmail")
+
+                                        <button type="submit" class="btn btn-outline-primary" style="width:100%">Demo Project Manager</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.social-auth-links -->
 
-                    <p class="mb-1">
-                        @*<a href="@Url.Action("ForgotPassword","Account")">I forgot my password</a>*@
-                        @Html.ActionLink("Reset Password", "ForgotPassword")
-                    </p>
-                    <p class="mb-0">
-                        @*<a href="register.html" class="text-center">Regiser as a user account</a>*@
-                        @Html.ActionLink("Register Here", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "text-center ", id = "registerLink" })
-                    </p>
+                <div class="social-auth-links text-center mb-3">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-danger">
+                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                    </a>
                 </div>
-                <!-- /.login-card-body -->
+                <!-- /.social-auth-links -->
+
+                <p class="mb-1">
+                    @*<a href="@Url.Action("ForgotPassword","Account")">I forgot my password</a>*@
+                    @Html.ActionLink("Reset Password", "ForgotPassword")
+                </p>
+                <p class="mb-0">
+                    @*<a href="register.html" class="text-center">Regiser as a user account</a>*@
+                    @Html.ActionLink("Register Here", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "text-center ", id = "registerLink" })
+                </p>
+
+                </div>
+
+
             </div>
+            <!-- /.login-card-body -->
         </div>
-        <!-- /.login-box -->
-        <!-- jQuery -->
-        <script src="~/Scripts/jquery.min.js"></script>
-        <!-- Bootstrap 4 -->
-        <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-        <!-- AdminLTE App -->
-        <script src="~/Scripts/jquery.min.js"></script>
+    </div>
+    <!-- /.login-box -->
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Scripts/jquery.min.js"></script>
 
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-        <script>
+    <script>
             var unconfirmedEmailError = '@TempData["unconfirmedEmailError"]';
             if (unconfirmedEmailError != "")
             {
@@ -125,8 +186,8 @@
                 })
             }
 
-        </script>
+    </script>
 
-    </div>
+    
 </body>
 </html>

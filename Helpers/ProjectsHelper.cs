@@ -12,13 +12,13 @@ namespace BugTracker.Helpers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserRolesHelper roleHelper = new UserRolesHelper();
-       
+
 
         public bool IsUserOnProject(string userId, int projectId)
         {
             var project = db.Projects.Find(projectId);
             var flag = project.Users.Any(u => u.Id == userId);
-            return( flag);
+            return (flag);
         }
 
         public ICollection<Project> ListUserProjects(string userId)
@@ -49,7 +49,7 @@ namespace BugTracker.Helpers
                     myProjects.AddRange(db.Projects.Where(t => t.IsArchived == false).Where(t => t.DeveloperId == userId));
                     break;
                 case "Sub":
-                    myProjects.AddRange(db.Projects.Where(t => t.IsArchived == false).Where(t=>t.SubmitterId == userId));
+                    myProjects.AddRange(db.Projects.Where(t => t.IsArchived == false).Where(t => t.SubmitterId == userId));
                     break;
 
             }
@@ -58,22 +58,23 @@ namespace BugTracker.Helpers
         }
 
 
-        //public ICollection<Project> ListNonUserProjects(string userId )
-        //{
-        //    ApplicationUser user = db.Users.Find(userId);
-
-        //    var projects = db.Projects.AddRange(db.Projects.Where(p => p.ProjectManagerId != userId).ToList());
-
-        //   // var developers = WTF
-        //    var onProject = projectHelper.UsersOnProject(1).ToList();
-        //    // does this take the first object and remove the anything from the second object 
-        //    // return developers.Intersect(onProject).ToList();
-        //    return user.Projects;
-        //}
+        public ICollection<ApplicationUser> AssignableDevelopers(int projectId)
+        {
+            var developers = roleHelper.UsersInRole("Developer");
+            var available = new List<ApplicationUser>();
+            foreach (var user in developers)
+            {
+                if (IsUserOnProject(user.Id, projectId))
+                {
+                    available.Add(user);
+                }
+            };
+            return available;
+        }
 
         public void AddUserToProject(string userId, int projectId)
         {
-            if (!IsUserOnProject(userId,projectId))
+            if (!IsUserOnProject(userId, projectId))
             {
                 Project proj = db.Projects.Find(projectId);
                 var newUser = db.Users.Find(userId);
@@ -85,7 +86,7 @@ namespace BugTracker.Helpers
 
         public void RemoveUserFromProject(string userId, int projectId)
         {
-            if (IsUserOnProject(userId,projectId))
+            if (IsUserOnProject(userId, projectId))
             {
                 Project proj = db.Projects.Find(projectId);
                 var delUsers = db.Users.Find(userId);
@@ -97,7 +98,7 @@ namespace BugTracker.Helpers
             }
         }
 
-        public ICollection<ApplicationUser>UsersOnProject(int projectId)
+        public ICollection<ApplicationUser> UsersOnProject(int projectId)
         {
             return db.Projects.Find(projectId).Users;
         }

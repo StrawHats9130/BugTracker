@@ -14,6 +14,7 @@ namespace BugTracker.Models
         public int TicketID { get; set; }
 
         public string FilePath { get; set; }
+        public string FileName { get; set; }
 
         public string Description { get; set; }
 
@@ -23,7 +24,7 @@ namespace BugTracker.Models
 
         public virtual Ticket Ticket { get; set; }
 
-        public virtual ApplicationUser USer { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
     }
 }

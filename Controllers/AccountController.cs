@@ -104,6 +104,36 @@ namespace BugTracker.Controllers
             }
         }
 
+        [AllowAnonymous]
+        public ActionResult DemoLogin()
+        {
+            
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DemoLoginAsync (string emailKey)
+        {
+
+            var email = WebConfigurationManager.AppSettings[emailKey];
+            var password = WebConfigurationManager.AppSettings["DemoPassword"];
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(email, password, false, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("Dashboard","Home");
+                case SignInStatus.Failure:
+                default:
+                    return RedirectToAction("Login", "Account");
+            }
+        }
+
+
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]

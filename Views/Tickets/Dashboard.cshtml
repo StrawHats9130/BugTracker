@@ -1,0 +1,89 @@
+﻿@using BugTracker.Models
+
+@model Ticket
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<div class="row mt-4">
+    <nav class="w-100">
+        <div class="nav nav-tabs" id="product-tab" role="tablist">
+            <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Attacments</a>
+            <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">Notification</a>
+            <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab" href="#product-rating" role="tab" aria-controls="product-rating" aria-selected="false">Comments</a>
+        </div>
+    </nav>
+    <div class="tab-content p-3" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+            @using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("TicketId", Model.Id)
+                <div class="row">
+                    <div class="col">
+                        @*<input type="file" name="newAttachment" />*@
+                        <div class="form-group">
+                            <!-- <label for="customFile">Custom File</label> -->
+
+                            <div class="custom-file">
+                                <input type="file" name="newAttachment" class="custom-file-input" @*id="customFile"*@>
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                            <input type="text" name="FileName" placeholder="File Name"/>
+                        </div>
+                    </div>
+                </div>
+                <div class=" row">
+                    <div class=" col">
+                        <button type="submit" class=" btn btn-outline-dark btn-sm">Save Attachment</button>
+                    </div>
+                </div>
+            }
+
+            <hr />
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <tr>
+                            <th></th>
+                            <th>
+                                @Html.DisplayName("Name")
+                            </th>
+                            <th>
+                                @Html.DisplayName("FilePath")
+                            </th>
+                        </tr>
+                        @foreach (var attachment in Model.Attachments)
+                        {
+                    <tr>
+                        <td></td>
+                        <td>
+                            <a target="_blank" href="@Url.Content(attachment.FilePath)"> @attachment.FileName</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(Model => attachment.FilePath)
+                        </td>
+                        
+                    </tr>
+
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
+
+            Notificaation area
+
+        </div>
+        <div class="tab-pane fade" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab">
+
+            Comments area
+
+        </div>
+    </div>
+</div>

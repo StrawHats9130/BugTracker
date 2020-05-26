@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BugTracker.Controllers
 {
@@ -17,7 +19,7 @@ namespace BugTracker.Controllers
         // GET: TicketAttachments
         public ActionResult Index()
         {
-            var ticketAttachments = db.TicketAttachments.Include(t => t.Ticket).Include(t => t.USer);
+            var ticketAttachments = db.TicketAttachments.Include(t => t.Ticket).Include(t => t.User);
             return View(ticketAttachments.ToList());
         }
 
@@ -49,10 +51,25 @@ namespace BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,UserID,TicketID,FilePath,Description,Created,FileUrl")] TicketAttachment ticketAttachment)
+        public ActionResult Create([Bind(Include = "TicketID,FileName")] TicketAttachment ticketAttachment, HttpPostedFileBase newAttachment)
         {
             if (ModelState.IsValid)
             {
+
+                if (newAttachment != null)
+                {
+                var justFileName = Path.GetFileNameWithoutExtension(newAttachment.FileName);
+                justFileName = StringUtilities.URLFriendly(justFileName);
+                justFileName = $"{justFileName}-{DateTime.Now.Ticks}";
+                justFileName = $"{justFileName}{Path.GetExtension(newAttachment.FileName)}";
+
+                newAttachment.SaveAs(Path.Combine(Server.MapPath("~/Attachments/"), justFileName));
+                ticketAttachment.FilePath = $"/Attachments/{justFileName}";
+                }
+
+                ticketAttachment.Created = DateTime.Now;
+                ticketAttachment.UserID = User.Identity.GetUserId();
+
                 db.TicketAttachments.Add(ticketAttachment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -85,7 +102,7 @@ namespace BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,UserID,TicketID,FilePath,Description,Created,FileUrl")] TicketAttachment ticketAttachment)
+        public ActionResult Edit([Bind(Include = "ID,UserID,TicketID,FilePath,Description,Created,FileUrl,FileName")] TicketAttachment ticketAttachment)
         {
             if (ModelState.IsValid)
             {

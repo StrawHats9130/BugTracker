@@ -18,7 +18,18 @@ namespace BugTracker.Models
         private ProjectsHelper projHelper = new ProjectsHelper();
         private HistoryHelper historyHelper = new HistoryHelper();
         // GET: Tickets
-        
+
+
+        public ActionResult Dashboard(int id)
+        {
+
+
+            return View(db.Tickets.Find(id));
+        }
+
+
+
+
         public ActionResult Index()
         {
             //var tickets = db.Tickets.Include(t => t.Developer).Include(t => t.Project).Include(t => t.Submitter);
@@ -30,10 +41,10 @@ namespace BugTracker.Models
                 ticketIndexVMs.Add(new TicketIndexViewModel
                 {
                     Ticket = ticket,
-                    TicketStatus = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId)                    
+                    TicketStatus = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId)
                 });
             }
-            
+
             return View(ticketIndexVMs);
         }
 
@@ -62,11 +73,11 @@ namespace BugTracker.Models
             var myProjects = projHelper.ListUserProjects(myUserId);
             if (projectId != null)
             {
-            ViewBag.ProjectId = new SelectList(myProjects, "Id", "Name");
+                ViewBag.ProjectId = new SelectList(myProjects, "Id", "Name");
             }
-            
-            
-            
+
+
+
             ViewBag.SubmitterId = new SelectList(db.Users, "Id", "FirstName");
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name");
             ViewBag.TicketStatusId = new SelectList(db.TicketStatus, "Id", "Name");
@@ -145,7 +156,7 @@ namespace BugTracker.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketStatusId,TicketPriorityId,SubmitterId,DeveloperId,Title,Description,Created,IsArchived")] Ticket ticket, string subMitterID )
+        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketStatusId,TicketPriorityId,SubmitterId,DeveloperId,Title,Description,Created,IsArchived")] Ticket ticket, string subMitterID)
         {
             if (ModelState.IsValid)
             {
@@ -153,7 +164,7 @@ namespace BugTracker.Models
                 //AsNoTracking() get a Memento(old version) Ticket object   
                 var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
 
-                ticket.SubmitterId = subMitterID;
+
                 ticket.Updated = DateTime.Now;
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
