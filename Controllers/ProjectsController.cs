@@ -48,6 +48,7 @@ namespace BugTracker.Models
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "PM, Admin")]
         public ActionResult ManageProjectAssignments(List<string> userIds, List<int> projectIds, bool addUser)
         {
 
@@ -188,6 +189,7 @@ namespace BugTracker.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "PM, Admin")]
         public ActionResult Create([Bind(Include = "Id,Name,Description,ProjectManagerId,")] Project project)
         {
             if (ModelState.IsValid)
@@ -223,6 +225,7 @@ namespace BugTracker.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "PM, Admin")]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,ProjectManagerId,Created,IsArchived")] Project project)
         {
             if (ModelState.IsValid)

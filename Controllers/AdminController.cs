@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
-    // [Authorize(Roles = "Admin")]
+     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
