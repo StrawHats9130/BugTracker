@@ -16,15 +16,6 @@ namespace BugTracker.Helpers
             //now I can compair old ticket to new ticket
             if (oldTicket.Title != newTicket.Title)
             {
-                //var newHistoryRecord = new TicketHistory();
-
-                //newHistoryRecord.ChangedOn = (DateTime)newTicket.Updated;
-                //newHistoryRecord.UserId = HttpContext.Current.User.Identity.GetUserId();
-                //newHistoryRecord.Property = "Title";
-                //newHistoryRecord.OldValue = oldTicket.Title;
-                //newHistoryRecord.NewValue = newTicket.Title;
-                //newHistoryRecord.TicketId = newTicket.Id;
-
                 var newHistoryRecord = new TicketHistory
                 {
                     ChangedOn = (DateTime)newTicket.Updated,
@@ -126,5 +117,8 @@ namespace BugTracker.Helpers
             //Id,ProjectId,TicketTypeId,TicketStatusId,TicketPriorityId,SubmitterId,DeveloperId,Title,Description,Created,IsArchived"
             //TicketTypeId,IsArchived"
         }
+
+       
+
     }
 }

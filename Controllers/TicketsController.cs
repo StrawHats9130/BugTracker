@@ -156,7 +156,7 @@ namespace BugTracker.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketStatusId,TicketPriorityId,SubmitterId,DeveloperId,Title,Description,Created,IsArchived")] Ticket ticket, string subMitterID)
+        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketStatusId,TicketPriorityId,SubmitterId,DeveloperId,Title,Description,Created,IsArchived")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
@@ -185,9 +185,15 @@ namespace BugTracker.Models
         [ValidateAntiForgeryToken]
         public ActionResult SpecialEdit(int ticketId, int ticketStatusId)
         {
+            var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticketId);
+
+
             var ticket = db.Tickets.Find(ticketId);
             ticket.TicketStatusId = ticketStatusId;
+            ticket.Updated = DateTime.Now;
             db.SaveChanges();
+
+            historyHelper.ManageHistoryRecordCreation(oldTicket, ticket);
 
             return RedirectToAction("Index");
         }

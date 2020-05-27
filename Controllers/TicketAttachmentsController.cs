@@ -67,6 +67,7 @@ namespace BugTracker.Controllers
                 ticketAttachment.FilePath = $"/Attachments/{justFileName}";
                 }
 
+
                 ticketAttachment.Created = DateTime.Now;
                 ticketAttachment.UserID = User.Identity.GetUserId();
 

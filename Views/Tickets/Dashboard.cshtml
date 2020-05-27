@@ -1,4 +1,5 @@
 ﻿@using BugTracker.Models
+@using BugTracker.Helpers
 
 @model Ticket
 
@@ -6,7 +7,7 @@
     ViewBag.Title = "Dashboard";
 }
 
-<h2>Dashboard</h2>
+<h2>@Model.Title</h2>
 
 <div class="row mt-4">
     <nav class="w-100">
@@ -32,7 +33,10 @@
                                 <input type="file" name="newAttachment" class="custom-file-input" @*id="customFile"*@>
                                 <label class="custom-file-label" for="customFile">Choose file</label>
                             </div>
-                            <input type="text" name="FileName" placeholder="File Name"/>
+                            
+                            <div >
+                                <input type="text" name="FileName" placeholder="File Name" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,16 +62,16 @@
                         </tr>
                         @foreach (var attachment in Model.Attachments)
                         {
-                    <tr>
-                        <td></td>
-                        <td>
-                            <a target="_blank" href="@Url.Content(attachment.FilePath)"> @attachment.FileName</a>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(Model => attachment.FilePath)
-                        </td>
-                        
-                    </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <img src="@AttachmentHelper.ShowIcon(attachment.FilePath)"/>
+                                </td>
+                                <td>
+                                    <a target="_blank" href="@Url.Content(attachment.FilePath)"> @attachment.FileName</a>
+                                </td>
+
+                            </tr>
 
                         }
 
@@ -78,12 +82,72 @@
         <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
 
             Notificaation area
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <tr>
+                            <th></th>
+                            <th>
+                                @Html.DisplayName("Name")
+                            </th>
+                            <th>
+                                @Html.DisplayName("FilePath")
+                            </th>
+                        </tr>
+                        @foreach (var notification in Model.Notifications)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>
+                                    @Html.DisplayFor(m=>notification.Id) 
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m=> notification.Created.ToString("MMM, dd yyyy"))
+                                </td>
+
+                            </tr>
+
+                        }
+
+                    </table>
+                </div>
+            </div>
 
         </div>
         <div class="tab-pane fade" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab">
 
             Comments area
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <tr>
+                            <th></th>
+                            <th>
+                                @Html.DisplayName("Name")
+                            </th>
+                            <th>
+                                @Html.DisplayName("FilePath")
+                            </th>
+                        </tr>
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>
+                                    @Html.DisplayFor(m => comment.User.FullName)
+                                </td>
+                                <td>
+                                    @*@Html.DisplayFor(m => comment.Created.ToString("MMM, dd yyyy"))*@
+                                    @Html.DisplayFor(m => comment.Comment)
+                                </td>
 
+                            </tr>
+
+                        }
+
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

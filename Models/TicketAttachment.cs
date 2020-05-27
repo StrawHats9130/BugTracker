@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Profile;
@@ -14,6 +15,9 @@ namespace BugTracker.Models
         public int TicketID { get; set; }
 
         public string FilePath { get; set; }
+
+        [Required]
+        [StringLength(30, ErrorMessage = "The {0} must be at least {2} characters long and no more that {1}.", MinimumLength = 1)]
         public string FileName { get; set; }
 
         public string Description { get; set; }
