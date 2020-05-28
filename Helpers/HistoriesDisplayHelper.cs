@@ -16,14 +16,11 @@ namespace BugTracker.Helpers
             switch (ticket.Property)
             {
                 //Create a case for when you need to display something other then a guid or Id
-                case "Title":
-                    data = db.Users.FirstOrDefault(u => u.Id == ticket.NewValue).FullName;
-                    break;
-
                 case "DeveloperId":
                     data = db.Users.FirstOrDefault(u => u.Id == ticket.NewValue).FullName;
                     break;
                 default:
+                    data = ticket.NewValue;
                     break;
             }
 

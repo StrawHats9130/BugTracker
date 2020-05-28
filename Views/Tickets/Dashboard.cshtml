@@ -16,11 +16,12 @@
             <a class="nav-item nav-link" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Attacments</a>
             <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">Notification</a>
             <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab" href="#product-rating" role="tab" aria-controls="product-rating" aria-selected="false">Comments</a>
+            <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab" href="#ticketHistory" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Histories</a>
         </div>
     </nav>
     <div class="tab-content p-3" id="nav-tabContent">
 
-        <div class="tab-pane fade" id="Tickets-Overview" role="tabpanel" aria-labelledby="product-rating-tab">
+        <div class="tab-pane fade show active" id="Tickets-Overview" role="tabpanel" aria-labelledby="product-rating-tab">
 
             Comments area
             <div class="row">
@@ -35,33 +36,33 @@
                                 @Html.DisplayName("Submitter")
                             </th>
                         </tr>
-                      
-                            <tr>
-                                <td></td>
-                                <td>
-                                    @Html.DisplayFor(m => Model.Title)
-                                </td>
-                                <td>
-                                    @*@Html.DisplayFor(m => comment.Created.ToString("MMM, dd yyyy"))*@
-                                    @Html.DisplayFor(m => Model.Submitter)
-                                </td>
 
-                            </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                @Html.DisplayFor(m => Model.Title)
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(m => comment.Created.ToString("MMM, dd yyyy"))*@
+                                @Html.DisplayFor(m => Model.Submitter)
+                            </td>
 
-                      
+                        </tr>
+
+
 
                     </table>
                 </div>
             </div>
         </div>
 
-        <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+        <div class="tab-pane fade" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
             @using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.Hidden("TicketId", Model.Id)
 
-            <h1> Add An Attachment</h1>
+                <h1> Add An Attachment</h1>
 
                 <div class="row">
                     <div class="col">
@@ -174,11 +175,46 @@
                             <tr>
                                 <td></td>
                                 <td>
-                                    @Html.DisplayFor(m => comment.UserId)
+                                    @Html.DisplayFor(m => comment.User.FullName)
                                 </td>
                                 <td>
                                     @*@Html.DisplayFor(m => comment.Created.ToString("MMM, dd yyyy"))*@
                                     @Html.DisplayFor(m => comment.Comment)
+                                </td>
+
+                            </tr>
+
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        \ <div class="tab-pane fade" id="ticketHistory" role="tabpanel" aria-labelledby="product-rating-tab">
+
+            Ticket Histories area
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <tr>
+                            <th></th>
+                            <th>
+                                @Html.DisplayName("Who Changed")
+                            </th>
+                            <th>
+                                @Html.DisplayName("What Changed")
+                            </th>
+                        </tr>
+                        @foreach (var ticketHistory in Model.Histories)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>
+                                    @Html.DisplayFor(m => ticketHistory.User.FullName)
+                                </td>
+                                <td>
+                                    @*@Html.DisplayFor(m => comment.Created.ToString("MMM, dd yyyy"))*@
+                                    @Html.DisplayFor(m => ticketHistory.Property)
                                 </td>
 
                             </tr>

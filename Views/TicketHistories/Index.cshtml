@@ -44,11 +44,10 @@
             @Html.DisplayFor(modelItem => item.Property)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OldValue)
+            @Html.Display(DisplayHelper.ChangeUserIdToFullName(item.OldValue))
         </td>
         <td>
-            @*@HistoriesDisplayHelper.DisplayData();*@
-            @Html.DisplayFor(modelItem => item.NewValue)
+            @Html.Display(DisplayHelper.ChangeUserIdToFullName(item.NewValue))
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ChangedOn)

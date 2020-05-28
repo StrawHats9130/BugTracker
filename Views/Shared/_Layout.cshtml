@@ -243,6 +243,12 @@
                                         <p>All Ticket Comments</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Index","TicketHistories")" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Ticket Histories List </p>
+                                    </a>
+                                </li>
 
                                 @if (User.IsInRole("Admin"))
                                 {

@@ -183,6 +183,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AttachmentHelper.cs" />
+    <Compile Include="Helpers\DisplayHelper.cs" />
     <Compile Include="Helpers\HistoriesDisplayHelper.cs" />
     <Compile Include="Helpers\HistoryHelper.cs" />
     <Compile Include="Helpers\ProjectsHelper.cs" />

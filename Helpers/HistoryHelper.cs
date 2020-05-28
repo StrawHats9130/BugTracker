@@ -13,6 +13,7 @@ namespace BugTracker.Helpers
 
         public void ManageHistoryRecordCreation(Ticket oldTicket, Ticket newTicket)
         {
+
             //now I can compair old ticket to new ticket
             if (oldTicket.Title != newTicket.Title)
             {
@@ -114,8 +115,7 @@ namespace BugTracker.Helpers
 
 
             db.SaveChanges();
-            //Id,ProjectId,TicketTypeId,TicketStatusId,TicketPriorityId,SubmitterId,DeveloperId,Title,Description,Created,IsArchived"
-            //TicketTypeId,IsArchived"
+           
         }
 
        
