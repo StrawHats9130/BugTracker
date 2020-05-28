@@ -186,6 +186,7 @@
     <Compile Include="Helpers\DisplayHelper.cs" />
     <Compile Include="Helpers\HistoriesDisplayHelper.cs" />
     <Compile Include="Helpers\HistoryHelper.cs" />
+    <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\ProjectsHelper.cs" />
     <Compile Include="Helpers\TicketHelper.cs" />
     <Compile Include="Helpers\TicketIndexViewModel.cs" />

@@ -17,6 +17,7 @@ namespace BugTracker.Models
         private ApplicationDbContext db = new ApplicationDbContext();
         private ProjectsHelper projHelper = new ProjectsHelper();
         private HistoryHelper historyHelper = new HistoryHelper();
+        private NotificationHelper notificationHelper = new NotificationHelper();
         // GET: Tickets
 
 
@@ -135,20 +136,41 @@ namespace BugTracker.Models
         }
 
         // GET: Tickets/Edit/5
+        [Authorize(Roles ="Admin, Dev, Sub, PM")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Ticket ticket = db.Tickets.Find(id);
+
+            var currentUserId = User.Identity.GetUserId();
+
+            //adding some additional security to determine if the user should have access to ticket
+            var authorized = true;
+
+
+            if ((User.IsInRole("Dev") && ticket.DeveloperId != currentUserId) ||
+                (User.IsInRole("Sub") && ticket.SubmitterId != currentUserId))
+            {
+                authorized = false;
+            }
+
+            if (!authorized)
+            {
+                TempData["UnathorizedTicketAccess"] = $"You are not authorized to Edit Ticket {id}";
+                return RedirectToAction("Dashboard", "Home");
+            }
+
             if (ticket == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName", ticket.DeveloperId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
-            ViewBag.SubmitterId = new SelectList(db.Users, "Id", "FirstName", ticket.SubmitterId);
+            ViewBag.DeveloperId = new SelectList(db.Users, "Id", "Email", ticket.DeveloperId);
+            ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
+            ViewBag.TicketStatusId = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId);
             return View(ticket);
         }
 
@@ -169,10 +191,12 @@ namespace BugTracker.Models
                 ticket.Updated = DateTime.Now;
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
+                var newTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
+                //Use the History Helper to intelligently create the appropriate records
+                historyHelper.ManageHistoryRecordCreation(oldTicket, newTicket);
 
-                //now I can compair old ticket to new ticket
-                historyHelper.ManageHistoryRecordCreation(oldTicket, ticket);
-
+                //Use the Notificaion Helper to intelligently create the appropriate records
+                notificationHelper.ManageNotifications(oldTicket,newTicket);
                 return RedirectToAction("Index", "Tickets");
             }
             ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName", ticket.DeveloperId);

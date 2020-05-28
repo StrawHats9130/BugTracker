@@ -12,7 +12,7 @@ namespace BugTracker.Helpers
         {
             var userFullName = "";
 
-            if (userId != "" )
+            if (userId != null )
             {
             var db = new ApplicationDbContext();
 

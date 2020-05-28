@@ -44,7 +44,7 @@
                             </td>
                             <td>
                                 @*@Html.DisplayFor(m => comment.Created.ToString("MMM, dd yyyy"))*@
-                                @Html.DisplayFor(m => Model.Submitter)
+                                @Html.DisplayFor(m => Model.Submitter.UserName)
                             </td>
 
                         </tr>
@@ -132,7 +132,10 @@
                                 @Html.DisplayName("Name")
                             </th>
                             <th>
-                                @Html.DisplayName("Created")
+                                @Html.DisplayName("Created with string format")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Created using the display on the property ")
                             </th>
                         </tr>
                         @foreach (var notification in Model.Notifications)
@@ -140,12 +143,14 @@
                             <tr>
                                 <td></td>
                                 <td>
-                                    @Html.DisplayFor(m => notification.Id)
+                                    @Html.DisplayFor(m => notification.Sender.UserName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(m => notification.Created.ToString("MMM, dd yyyy"))
+                                    @Html.DisplayFor(m => notification.Created)
                                 </td>
-
+                                <td>
+                                    @Html.DisplayFor(m => notification.Created)
+                                </td>
                             </tr>
 
                         }
@@ -170,27 +175,44 @@
                                 @Html.DisplayName("Comment")
                             </th>
                         </tr>
-                        @foreach (var comment in Model.Comments)
+                        @if (Model.Comments.Count != 0)
+                        {
+                            foreach (var comment in Model.Comments)
+                            {
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        @Html.DisplayFor(m => comment.User.FullName)
+                                    </td>
+                                    <td>
+                                        @*@Html.DisplayFor(m => comment.Created.ToString("MMM, dd yyyy"))*@
+                                        @Html.DisplayFor(m => comment.Comment)
+                                    </td>
+
+                                </tr>
+
+                            }
+                        }
+                        else
                         {
                             <tr>
                                 <td></td>
                                 <td>
-                                    @Html.DisplayFor(m => comment.User.FullName)
+                                    @Html.DisplayName("N/A")
                                 </td>
                                 <td>
                                     @*@Html.DisplayFor(m => comment.Created.ToString("MMM, dd yyyy"))*@
-                                    @Html.DisplayFor(m => comment.Comment)
+                                    @Html.DisplayName("N/A")
                                 </td>
 
                             </tr>
-
                         }
 
                     </table>
                 </div>
             </div>
         </div>
-        \ <div class="tab-pane fade" id="ticketHistory" role="tabpanel" aria-labelledby="product-rating-tab">
+         <div class="tab-pane fade" id="ticketHistory" role="tabpanel" aria-labelledby="product-rating-tab">
 
             Ticket Histories area
             <div class="row">

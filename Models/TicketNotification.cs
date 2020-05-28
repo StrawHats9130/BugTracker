@@ -14,6 +14,7 @@ namespace BugTracker.Models
         public string RecipientId { get; set; }
         public bool IsRead { get; set; }
         public string NotificationBody { get; set; }
+        public string Subject { get; set; }
 
         [DisplayFormat(DataFormatString ="{0:MMM dd, yyyy}")]
         public DateTime Created { get; set; }
