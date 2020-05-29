@@ -27,16 +27,24 @@ namespace BugTracker.Controllers
         
         public ActionResult Dashboard()
         {
-            /* //creating an application user for the Icollection of Projects
-             var user = new ApplicationUser();
-             //Getting the current user Id
-             var userId = User.Identity.GetUserId();
-             //populatinf Projects with a list of current users projects
-             user.Projects = projHelper.ListUserProjects(userId).ToList();*/
+            var model = new UserProfileViewModel();
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
+            //    model.AvitarPath = user.AvatarPath;
+            //    model.FullName = user.FullName;
+            model.Id = userId;
+            model.ProjectsIn = projHelper.ListUserProjects(userId);
 
-           
+            model.TicketsIn = ticketHelper.ListMyTickets();
+            model.TicetsOut = ticketHelper.ListTicketsNotBelongingToUser();
+            model.Role = roleHelper.ListUserRoles(userId).FirstOrDefault();
 
-            return View(projHelper.ListMyProjects().ToList());
+            return View(model);
+        }
+
+        public ActionResult Dismiss()
+        {
+            return View();
         }
 
         public ActionResult UserProfile()

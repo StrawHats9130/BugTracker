@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-    
+    <div class=" content-wrapper">
         <h2>Index</h2>
 
         <p>
@@ -30,7 +30,7 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.UserId)
+                        @Html.DisplayName( BugTracker.Helpers.DisplayHelper.ChangeUserIdToFullName(item.UserId))
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.User.FirstName)
@@ -50,4 +50,4 @@
             }
 
         </table>
-   
+    </div>

@@ -76,7 +76,7 @@ namespace BugTracker.Models
             {
                 ViewBag.ProjectId = new SelectList(myProjects, "Id", "Name");
             }
-
+           
 
 
             ViewBag.SubmitterId = new SelectList(db.Users, "Id", "FirstName");

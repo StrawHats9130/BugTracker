@@ -6,58 +6,75 @@
     ViewBag.Title = "Index";
     var db = new ApplicationDbContext();
 }
+    <div class="content-wrapper">
+        <h2>Index</h2>
 
-<h2>Index</h2>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        
-        <th>
-            @Html.DisplayName("Changed By")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Property)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OldValue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NewValue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ChangedOn)
-        </th>
-        <th></th>
-    </tr>
+                <th>
+                    @Html.DisplayName("Changed By")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Property)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OldValue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewValue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ChangedOn)
+                </th>
+                <th></th>
+            </tr>
 
-@foreach (var item in Model)
-{
-    <tr>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Property)
-        </td>
-        <td>
-            @Html.Display(DisplayHelper.ChangeUserIdToFullName(item.OldValue))
-        </td>
-        <td>
-            @Html.Display(DisplayHelper.ChangeUserIdToFullName(item.NewValue))
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ChangedOn)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+            @foreach (var item in Model)
+            {
+                <tr>
 
-</table>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Property)
+                    </td>
+                    <td>
+                        @if (item.Property == "DeveloperId")
+                        {
+                            @Html.DisplayName(DisplayHelper.ChangeUserIdToFullName(item.OldValue))
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.OldValue)
+                        }
+                    </td>
+                    <td>
+                        @if (item.Property == "DeveloperId")
+                        {
+                            string developerName = DisplayHelper.ChangeUserIdToFullName(item.NewValue);
+                            @Html.DisplayName(developerName)
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.NewValue)
+                        }
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChangedOn)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
