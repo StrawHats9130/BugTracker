@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TicketAttachmentsController.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\CustomUserData.cs" />
     <Compile Include="ViewModel\EmailModel.cs" />
+    <Compile Include="ViewModel\PieChartViewModel.cs" />
     <Compile Include="ViewModel\UserProfileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -328,6 +330,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Attachments\" />
     <Folder Include="Icons\" />
+    <Folder Include="Views\Chart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
