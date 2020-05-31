@@ -22,8 +22,8 @@ namespace BugTracker.Controllers
             {
                 pieChartViewModel.Lables.Add(priority.Name);
                 pieChartViewModel.BackgroundColor.Add(priority.Color);
-                var ticketPriorityCount = ticket.Where(tp => tp.Id == priority.Id).ToList();
-                pieChartViewModel.Data.Add(ticketPriorityCount.Count);
+                var ticketPriorityCount = ticket.Where(tp => tp.TicketPriorityId == priority.Id).ToList().Count;
+                pieChartViewModel.Data.Add(ticketPriorityCount);
             }
             return Json(pieChartViewModel);
 

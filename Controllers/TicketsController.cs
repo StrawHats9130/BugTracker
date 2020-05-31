@@ -1,6 +1,7 @@
 ﻿
 
 using BugTracker.Helpers;
+using BugTracker.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -18,14 +19,24 @@ namespace BugTracker.Models
         private ProjectsHelper projHelper = new ProjectsHelper();
         private HistoryHelper historyHelper = new HistoryHelper();
         private NotificationHelper notificationHelper = new NotificationHelper();
+        private UserRolesHelper rolesHelper = new UserRolesHelper();
+        private TicketHelper ticketHelper = new TicketHelper();
         // GET: Tickets
 
 
         public ActionResult Dashboard(int id)
         {
+            var userId = User.Identity.GetUserId();
+            var ticketDashboardVM = new TicketDashboardViewModel
+            {
+                Ticket = db.Tickets.Find(id),
+                UserTicketNotifications = db.TicketNotifications.Where(tn => tn.RecipientId == userId).ToList(),
+                UsersTicketAttachments = db.TicketAttachments.Where(ta=> ta.UserID == userId).ToList(),
+                UsersTicketComments = db.TicketComments.Where(tc=>tc.UserId == userId).ToList()
+            };
 
 
-            return View(db.Tickets.Find(id));
+            return View(ticketDashboardVM);
         }
 
 
@@ -37,13 +48,47 @@ namespace BugTracker.Models
             //return View(tickets.ToList());
             var ticketIndexVMs = new List<TicketIndexViewModel>();
             var allTickets = db.Tickets.ToList();
-            foreach (var ticket in allTickets)
+            var myTickets = ticketHelper.ListMyTickets();
+            var developers = rolesHelper.UsersInRole("Dev").ToList();
+            if (User.IsInRole("Dev") || User.IsInRole("Sub"))
             {
-                ticketIndexVMs.Add(new TicketIndexViewModel
+                foreach (var ticket in myTickets)
                 {
-                    Ticket = ticket,
-                    TicketStatus = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId)
-                });
+                    var ticketComments = new List<TicketComment>();
+                    var userId = User.Identity.GetUserId();
+                    foreach (var comment in ticket.Comments)
+                    {
+                        if (comment.UserId == userId)
+                        {
+                            ticketComments.Add(comment);
+                        }
+                    }
+                    ticketIndexVMs.Add(new TicketIndexViewModel
+                    {
+                        Ticket = ticket,
+                        TicketStatus = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId),
+                        TicketPriority = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId),
+                        TicketType = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId),
+                        Developer = new SelectList(developers, "Id", "Email", ticket.DeveloperId),
+                        MyTicketComments = ticketComments
+                    });
+                }
+            }
+
+            if (User.IsInRole("Admin") || User.IsInRole("PM"))
+            {
+                foreach (var ticket in allTickets)
+                {
+                    ticketIndexVMs.Add(new TicketIndexViewModel
+                    {
+                        Ticket = ticket,
+                        TicketStatus = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId),
+                        TicketPriority = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId),
+                        TicketType = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId),
+                        Developer = new SelectList(developers, "Id", "Email", ticket.DeveloperId),
+                        
+                    });
+                }
             }
 
             return View(ticketIndexVMs);
@@ -76,7 +121,7 @@ namespace BugTracker.Models
             {
                 ViewBag.ProjectId = new SelectList(myProjects, "Id", "Name");
             }
-           
+
 
 
             ViewBag.SubmitterId = new SelectList(db.Users, "Id", "FirstName");
@@ -136,7 +181,7 @@ namespace BugTracker.Models
         }
 
         // GET: Tickets/Edit/5
-        [Authorize(Roles ="Admin, Dev, Sub, PM")]
+        [Authorize(Roles = "Admin, Dev, Sub, PM")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -196,7 +241,7 @@ namespace BugTracker.Models
                 historyHelper.ManageHistoryRecordCreation(oldTicket, newTicket);
 
                 //Use the Notificaion Helper to intelligently create the appropriate records
-                notificationHelper.ManageNotifications(oldTicket,newTicket);
+                notificationHelper.ManageNotifications(oldTicket, newTicket);
                 return RedirectToAction("Index", "Tickets");
             }
             ViewBag.DeveloperId = new SelectList(db.Users, "Id", "FirstName", ticket.DeveloperId);
@@ -208,17 +253,21 @@ namespace BugTracker.Models
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SpecialEdit(int ticketId, int ticketStatusId)
+        public ActionResult SpecialEdit(int ticketId, int ticketStatusId, string developerId, int ticketTypeId, int ticketPriorityId)
         {
             var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticketId);
 
 
-            var ticket = db.Tickets.Find(ticketId);
-            ticket.TicketStatusId = ticketStatusId;
-            ticket.Updated = DateTime.Now;
+            var newTicket = db.Tickets.Find(ticketId);
+            newTicket.DeveloperId = developerId;
+            newTicket.TicketTypeId = ticketTypeId;
+            newTicket.TicketPriorityId = ticketPriorityId;
+            newTicket.TicketStatusId = ticketStatusId;
+            newTicket.Updated = DateTime.Now;
             db.SaveChanges();
 
-            historyHelper.ManageHistoryRecordCreation(oldTicket, ticket);
+            historyHelper.ManageHistoryRecordCreation(oldTicket, newTicket);
+            notificationHelper.ManageNotifications(oldTicket, newTicket);
 
             return RedirectToAction("Index");
         }

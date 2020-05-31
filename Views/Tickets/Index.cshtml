@@ -6,16 +6,16 @@
     ViewBag.Title = "Index";
 }
 
-    <div class="content-wrapper">
-        <h2>Index</h2>
+<div class="content-wrapper">
+    <h2>Index</h2>
 
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
 
-        <!-- original Scafold taable-->
-        <section>
-            @*<table class="table">
+    <!-- original Scafold taable-->
+    <section>
+        @*<table class="table">
                 <tr>
                     <th>
                         @Html.DisplayName("Developer")
@@ -127,80 +127,110 @@
                 }
 
             </table>*@
-        </section>
+    </section>
 
-        <!-- TABLE: LATEST ORDERS -->
-        <div class="card">
-            <div class="card-header border-transparent">
-                <h3 class="card-title">Current Tickets</h3>
+    <!-- TABLE: LATEST ORDERS -->
+    <div class="card">
+        <div class="card-header border-transparent">
+            <h3 class="card-title">Current Tickets</h3>
 
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    @*<button type="button" class="btn btn-tool" data-card-widget="remove">
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                @*<button type="button" class="btn btn-tool" data-card-widget="remove">
                         <i class="fas fa-times"></i>
                     </button>*@
-                </div>
             </div>
+        </div>
 
-            <!-- /.card-header -->
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table m-0">
-                        <thead>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table m-0">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Ticket.Title)
+                            </th>
+                            <th>
+                                @Html.DisplayName("Developer")
+                            </th>
+                            <th> @Html.DisplayName("Status")</th>
+
+                            <th> @Html.DisplayName("Type")</th>
+                            <th> @Html.DisplayName("Priority")</th>
+                            <th></th>
+                            <th> @Html.DisplayNameFor(model => model.Ticket.Created)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
                             <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Ticket.Title)
-                                </th>
-                                <th>
-                                    @Html.DisplayName("Developer")
-                                </th>
-                                <th> @Html.DisplayName("Status")</th>
-                                <th> @Html.DisplayName("Status")</th>
-                                <th> @Html.DisplayNameFor(model => model.Ticket.Created)</th>
-                                <th></th>
+                                <td> @Html.DisplayName(item.Ticket.Title)</td>
+                                @*<td> @Html.DisplayFor(modelItem => item.Ticket.Developer.FirstName)</td>*@
+                                @*<td><span class="badge badge-warning">@Html.DisplayFor(modelItem => item.Ticket.TicketStatus.Name)</span></td>*@
+                                @using (Html.BeginForm("SpecialEdit", "Tickets"))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("TicketId", item.Ticket.Id)
+                                    @Html.Hidden("Created", item.Ticket.Created)
+                                    if (User.IsInRole("Sub") || User.IsInRole("Dev"))
+                                    {
+                                        @Html.Hidden("DeveloperId", item.Ticket.DeveloperId)
+                                        @Html.Hidden("TicketStatusId", item.Ticket.TicketStatusId)
+                                       
+                                    }
+                                    <td>
+                                        @if (User.IsInRole("Sub") || User.IsInRole("Dev"))
+                                        {
+                                            @Html.DisplayName(DisplayHelper.ChangeUserIdToFullName(item.Ticket.DeveloperId))
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownList("DeveloperId", item.Developer)
+                                        }
+
+                                    </td>
+                                    <td>
+                                        @if (User.IsInRole("Sub") )
+                                        {
+                                            @Html.DisplayName(DisplayHelper.ChangeTicketStatusIdToName(item.Ticket.TicketStatusId))
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownList("TicketStatusId", item.TicketStatus)
+
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("TicketTypeId", item.TicketType)
+                                    </td>
+
+                                    <td>
+                                            @Html.DropDownList("TicketPriorityId", item.TicketPriority)
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-outline-dark btn-sm">Save</button>
+                                    </td>
+
+                                }
+                                <td> @Html.DisplayName(item.Ticket.Created.ToString("MMM, dd yyyy"))</td>
+                                <td>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("PM"))
+                                    {
+                                        @*@Html.ActionLink("Delete", "Delete", new { id = item.Ticket.Id })*@
+                                    }
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Ticket.Id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.Ticket.Id }) |
+                                    @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Ticket.Id })
+                                </td>
+
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td> @Html.DisplayFor(modelItem => item.Ticket.Title)</td>
-                                    <td> @Html.DisplayFor(modelItem => item.Ticket.Developer.FirstName)</td>
-                                    <td><span class="badge badge-warning">@Html.DisplayFor(modelItem => item.Ticket.TicketStatus.Name)</span></td>
-                                    <td>
-                                        @using (Html.BeginForm("SpecialEdit", "Tickets"))
-                                        {
-                                            @Html.AntiForgeryToken()
-                                            @Html.Hidden("TicketId", item.Ticket.Id)
-
-                                            <div class=" row">
-                                                <div class=" col">
-                                                    @Html.DropDownList("TicketStatusId", item.TicketStatus)
-                                                </div>
-                                                <div class=" col">
-                                                    <button type="submit" class="btn btn-outline-dark btn-sm">Save</button>
-                                                </div>
-                                            </div>
-
-
-                                        }
-                                    </td>
-                                    <td> @Html.DisplayFor(modelItem => item.Ticket.Created)</td>
-                                    <td>
-                                        @if (User.IsInRole("Admin") || User.IsInRole("PM"))
-                                        {
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.Ticket.Id })
-                                            @*@Html.ActionLink("Delete", "Delete", new { id = item.Ticket.Id })*@
-                                        }
-                                        | @Html.ActionLink("Details", "Details", new { id = item.Ticket.Id })
-                                        | @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Ticket.Id })
-                                    </td>
-
-                                </tr>
-                            }
-                            @*<tr>
+                        }
+                        @*<tr>
                                 <td><a href="pages/examples/invoice.html">OR1848</a></td>
                                 <td>Samsung Smart TV</td>
                                 <td><span class="badge badge-warning">Pending</span></td>
@@ -210,17 +240,17 @@
                                 <td></td>
                             </tr>*@
 
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.table-responsive -->
+                    </tbody>
+                </table>
             </div>
-            <!-- /.card-body -->
-            @*<div class="card-footer clearfix">
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.card-body -->
+        @*<div class="card-footer clearfix">
                 <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
                 <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
             </div>*@
-            <!-- /.card-footer -->
-        </div>
-        <!-- /.card -->
+        <!-- /.card-footer -->
     </div>
+    <!-- /.card -->
+</div>

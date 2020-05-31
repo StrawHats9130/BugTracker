@@ -231,9 +231,6 @@
                 <th>
                     @Html.DisplayName("Created")
                 </th>
-
-
-
                 <th></th>
             </tr>
         </thead>
@@ -243,7 +240,7 @@
                 <tr>
                     <td>
 
-                        <a href="@Url.Action("Index","Projects" ,new { id = item.Id })" class="nav-link ">
+                        <a href="@Url.Action("Details","Projects" ,new { id = item.Id })" class="nav-link ">
 
                             <p>@item.Name </p>
                         </a>
@@ -285,13 +282,9 @@
                 <th>
                     @Html.DisplayName("Tickets")
                 </th>
-
                 <th>
                     @Html.DisplayName("Created")
                 </th>
-
-
-
                 <th></th>
             </tr>
         </thead>
@@ -323,27 +316,18 @@
                 <tr>
                     <td>
                         <a href="#" class="nav-link ">
-
                             <p>No Tickets Assigned Yet</p>
                         </a>
                     </td>
                     <td>
                         <a href="#" class="nav-link ">
-
                             <p>N/A </p>
                         </a>
                     </td>
                     <td></td>
                 </tr>
-
-
             }
-
-
-
-
         </tbody>
-
     </table>
 
 </div>
@@ -385,9 +369,9 @@
             options: pieOptions
         })
 
-  //-----------------
-  //- END PIE CHART -
-  //-----------------
+      //-----------------
+      //- END PIE CHART -
+      //-----------------
 
     </script>
 

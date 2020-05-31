@@ -191,7 +191,8 @@
     <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\ProjectsHelper.cs" />
     <Compile Include="Helpers\TicketHelper.cs" />
-    <Compile Include="Helpers\TicketIndexViewModel.cs" />
+    <Compile Include="ViewModel\TicketDashboardViewModel.cs" />
+    <Compile Include="ViewModel\TicketIndexViewModel.cs" />
     <Compile Include="Helpers\UserRolesHelper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

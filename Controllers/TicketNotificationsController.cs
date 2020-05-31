@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BugTracker.Controllers
 {
@@ -50,10 +51,12 @@ namespace BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TicketId,SenderId,RecipientId,IsRead,NotificationBody,Created")] TicketNotification ticketNotification)
+        public ActionResult Create([Bind(Include = "Id,TicketId,SenderId,RecipientId,IsRead,NotificationBody")] TicketNotification ticketNotification)
         {
             if (ModelState.IsValid)
             {
+                ticketNotification.SenderId = User.Identity.GetUserId();
+                ticketNotification.Created = DateTime.Now;
                 db.TicketNotifications.Add(ticketNotification);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -38,12 +38,17 @@ namespace BugTracker.Controllers
         }
 
         // GET: TicketComments/Create
-        public ActionResult Create()
+        public ActionResult Create(int ticketId)
         {
             
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title");
             ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
-            return View();
+            var newTicket = new TicketComment();
+            if (ticketId != null)
+            {
+                newTicket.TicketId = (int)ticketId;
+            }
+            return View(newTicket);
         }
 
         // POST: TicketComments/Create
@@ -51,7 +56,7 @@ namespace BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Comment,TicketId")] TicketComment ticketComment)
+        public ActionResult Create([Bind(Include = "Comment,TicketId")] TicketComment ticketComment)
         {
             if (ModelState.IsValid)
             {

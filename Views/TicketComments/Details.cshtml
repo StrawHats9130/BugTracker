@@ -3,42 +3,43 @@
 @{
     ViewBag.Title = "Details";
 }
+    <div class="content-wrapper">
+        <h2>Details</h2>
 
-<h2>Details</h2>
+        <div>
+            <h4>TicketComment</h4>
+            <hr />
+            <dl class="dl-horizontal">
 
-<div>
-    <h4>TicketComment</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        
 
-        <dt>
-            @Html.DisplayName("Created By")
-        </dt>
+                <dt>
+                    @Html.DisplayName("Created By")
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.User.FirstName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.User.FirstName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Comment)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Comment)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Comment)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Created)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Created)
+                </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>

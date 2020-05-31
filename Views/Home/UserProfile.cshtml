@@ -6,140 +6,150 @@
     ViewBag.Title = "UserProfile";
 }
 
-    <div class="content-wrapper">
+<div class="content-wrapper">
 
-        <h2>UserProfile</h2>
-        <p>
-            @Html.ActionLink("Create New", "Create", "Tickets")
-        </p>
-        <table class="table">
+    <h2>UserProfile</h2>
+    <p>
+        @Html.ActionLink("Create New", "Create", "Tickets")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Title")
+            </th>
+            <th>
+                @Html.DisplayName("Description")
+            </th>
+            <th>
+                @Html.DisplayName("Submitter")
+            </th>
+            <th>
+                @Html.DisplayName("Developer")
+            </th>
+            <th>
+                @Html.DisplayName("Ticket Status")
+            </th>
+            <th>
+                @Html.DisplayName("Ticket Type")
+            </th>
+            <th>
+                @Html.DisplayName("Ticket Priorty")
+            </th>
+            <th>
+                @Html.DisplayName("Created")
+            </th>
+
+            <th>
+                @Html.DisplayName("Archived")
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.TicketsIn)
+        {
             <tr>
-                <th>
-                    @Html.DisplayName("Title")
-                </th>
-                <th>
-                    @Html.DisplayName("Description")
-                </th>
-                <th>
-                    @Html.DisplayName("Submitter")
-                </th>
-                <th>
-                    @Html.DisplayName("Developer")
-                </th>
-                <th>
-                    @Html.DisplayName("Ticket Status")
-                </th>
-                <th>
-                    @Html.DisplayName("Ticket Type")
-                </th>
-                <th>
-                    @Html.DisplayName("Ticket Priorty")
-                </th>
-                <th>
-                    @Html.DisplayName("Created")
-                </th>
-
-                <th>
-                    @Html.DisplayName("Archived")
-                </th>
-
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model.TicketsIn)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Submitter.FullName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Developer.FullName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TicketStatus.Name)
-                    </td>
-                    <td>
-                        @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Submitter.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Developer.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
                         @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
                         @Html.ActionLink("Create Ticket", "Create", "Ticket", new { projectId = item.Project.ProjectManagerId })*@
 
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            }
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
 
-        </table>
-        <div class="card card-success">
-            <div class="card-header">
-                <h3 class="card-title">Bar Chart</h3>
+    </table>
+    <div class="card card-success">
+        <div class="card-header">
+            <h3 class="card-title">Bar Chart</h3>
 
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                </div>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
             </div>
-            <div class="card-body">
-                <div class="chart">
-                    @*<canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>*@
-                    <canvas width="310" height="375" class="chartjs-render-monitor" id="barChart" style="width: 207px; height: 250px; 
-                    display: block; min-height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-            </div>
-            <!-- /.card-body -->
         </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Browser Usage</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
+        <div class="card-body">
+            <div class="chart">
+                @*<canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>*@
+                <canvas width="310" height="375" class="chartjs-render-monitor" id="barChart" style="width: 207px; height: 250px;
+                    display: block; min-height: 250px; max-height: 250px; max-width: 100%;"></canvas>
             </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="chart-responsive">
-                            <canvas id="pieChart1" height="50"></canvas>
+        </div>
+        <!-- /.card-body -->
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Browser Usage</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="chart-responsive">
+                        <canvas id="pieChart1" height="150"></canvas>
+                    </div>
+
+
+                    <!-- ./chart-responsive -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-2">
+                    <ul class="chart-legend clearfix">
+
+                        <li><i class="far fa-circle text-danger"></i> Immediate</li>
+                        <li><i class="far fa-circle text-success"></i> 'High</li>
+                        <li><i class="far fa-circle text-warning"></i> Medium</li>
+                        <li><i class="far fa-circle text-info"></i> Low</li>
+                        <li><i class="far fa-circle text-primary"></i> None</li>
+
+                    </ul>
+                </div>
+                <!-- /.col -->
+                <div class=" col-md-4">
+                    <div class="card-body">
+                        <div class="chart">
+                            @*<canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>*@
+                            <canvas width="310" height="375" class="chartjs-render-monitor" id="saleChart" style="width: 100px; height: 50px;
+                    display: block; min-height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                         </div>
-
-
-                        <!-- ./chart-responsive -->
                     </div>
-                    <!-- /.col -->
-                    <div class="col-md-4">
-                        <ul class="chart-legend clearfix">
-                            <li><i class="far fa-circle text-danger"></i> Immediate</li>
-                            <li><i class="far fa-circle text-success"></i> 'High</li>
-                            <li><i class="far fa-circle text-warning"></i> Medium</li>
-                            <li><i class="far fa-circle text-info"></i> Low</li>
-                            <li><i class="far fa-circle text-primary"></i> None</li>
-
-                        </ul>
-                    </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.card-body -->
-            @*<div class="card-footer bg-white p-0">
+            <!-- /.row -->
+        </div>
+        <!-- /.card-body -->
+        @*<div class="card-footer bg-white p-0">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -168,11 +178,31 @@
                     </li>
                 </ul>
             </div>*@
-            <!-- /.footer -->
-        </div>
-
-
+        <!-- /.footer -->
     </div>
+    <div class="card card-success">
+        <div class="card-header">
+            <h3 class="card-title">Bar Chart</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="chart">
+                @*<canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>*@
+                <canvas width="310" height="375" class="chartjs-render-monitor" id="saleChart1" style="width: 100px; height: 50px;
+                    display: block; min-height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+
+
+</div>
 
 
 <section>
@@ -897,7 +927,7 @@
                                             <li><i class="far fa-circle text-success"></i> 'High</li>
                                             <li><i class="far fa-circle text-warning"></i> Medium</li>
                                             <li><i class="far fa-circle text-info"></i> Low</li>
-                                            <li><i class="far fa-circle text-primary"></i> None</li>                                            
+                                            <li><i class="far fa-circle text-primary"></i> None</li>
                                         </ul>
 
                                     </div>
@@ -1039,6 +1069,154 @@
 
 @section scripts {
     <script>
+        //      var salesChartCanvas = $('#barChart').get(0).getContext('2d')
+
+        //      var salesChartData = {
+        //          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        //          datasets: [
+        //              {
+        //                  label: 'Digital Goods',
+        //                  backgroundColor: 'rgba(60,141,188,0.9)',
+        //                  borderColor: 'rgba(60,141,188,0.8)',
+        //                  pointRadius: false,
+        //                  pointColor: '#3b8bba',
+        //                  pointStrokeColor: 'rgba(60,141,188,1)',
+        //                  pointHighlightFill: '#fff',
+        //                  pointHighlightStroke: 'rgba(60,141,188,1)',
+        //                  data: [28, 48, 40, 19, 86, 27, 90]
+        //              },
+        //              {
+        //                  label: 'Electronics',
+        //                  backgroundColor: 'rgba(210, 214, 222, 1)',
+        //                  borderColor: 'rgba(210, 214, 222, 1)',
+        //                  pointRadius: false,
+        //                  pointColor: 'rgba(210, 214, 222, 1)',
+        //                  pointStrokeColor: '#c1c7d1',
+        //                  pointHighlightFill: '#fff',
+        //                  pointHighlightStroke: 'rgba(220,220,220,1)',
+        //                  data: [65, 59, 80, 81, 56, 55, 40]
+        //              },
+        //          ]
+        //      }
+
+        //      var salesChartOptions = {
+        //          maintainAspectRatio: false,
+        //          responsive: true,
+        //          legend: {
+        //              display: false
+        //          },
+        //          scales: {
+        //              xAxes: [{
+        //                  gridLines: {
+        //                      display: false,
+        //                  }
+        //              }],
+        //              yAxes: [{
+        //                  gridLines: {
+        //                      display: false,
+        //                  }
+        //              }]
+        //          }
+        //      }
+
+
+        //      var barChartOptions = {
+        //          responsive: true,
+        //          maintainAspectRatio: false,
+        //          datasetFill: false
+        //      }
+
+        //      // This will get the first returned node in the jQuery collection.
+        //      var salesChart = new Chart(salesChartCanvas, {
+        //          type: 'bar',
+        //          data: salesChartData,
+        //          options: barChartOptions
+        //      }
+        //      )
+
+        ////---------------------------
+        ////- END MONTHLY SALES CHART -
+        ////---------------------------
+        //
+        // Get context with jQuery - using jQuery's .get() method.
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetTicketPriorityPieChatData", "Chart")',
+            dataType: "Json"
+        }).then(function (response) {
+            var pieChartCanvas = $('#pieChart1').get(0).getContext('2d')
+            var pieData = {
+                labels: response.Lables,
+
+                datasets: [
+                    {
+
+                        data: response.Data,
+                        backgroundColor: response.BackgroundColor,
+                    }
+                ]
+            }
+            var pieOptions = {
+                legend: {
+                    display: false
+                }
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            var pieChart = new Chart(pieChartCanvas, {
+                type: 'doughnut',
+                data: pieData,
+                options: pieOptions
+            })
+        });
+
+
+
+        //var pieChartCanvas = $('#pieChart1').get(0).getContext('2d')
+        //var pieData = {
+        //    labels: [
+        //        'Chrome',
+        //        'IE',
+        //        'FireFox',
+        //        'Safari',
+        //        'Opera',
+        //        'Navigator',
+        //    ],
+        //    datasets: [
+        //        {
+        //            data: [700, 500, 400, 600, 300, 100],
+        //            backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+        //        }
+        //    ]
+        //}
+        //var pieOptions = {
+        //    legend: {
+        //        display: false
+        //    }
+        //}
+        ////Create pie or douhnut chart
+        //// You can switch between pie and douhnut using the method below.
+        //var pieChart = new Chart(pieChartCanvas, {
+        //    type: 'pie',
+        //    data: pieData,
+        //    options: pieOptions
+        //})
+
+        //-----------------
+        //- END PIE CHART -
+        //-----------------
+
+
+
+
+
+    </script>
+    <script>
+
+        //-----------------
+        //- Line CHART -
+        //-----------------
         var salesChartCanvas = $('#barChart').get(0).getContext('2d')
 
         var salesChartData = {
@@ -1090,26 +1268,56 @@
         }
 
 
+        var barChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            datasetFill: false
+        }
+
         // This will get the first returned node in the jQuery collection.
         var salesChart = new Chart(salesChartCanvas, {
-            type: 'bar',
+            type: 'line',
             data: salesChartData,
             options: salesChartOptions
         }
         )
 
-  //---------------------------
-  //- END MONTHLY SALES CHART -
-  //---------------------------
+        ////---------------------------
+        ////- END MONTHLY SALES CHART -
+        ////---------------------------
+
+
+
+    </script>
+    <script>
         //-------------
-        //- BAR CHART -
-        //-------------
+        //      //- BAR CHART -
+        //      //-------------
         var barChartCanvas = $('#saleChart').get(0).getContext('2d')
-        var barChartData = jQuery.extend(true, {}, areaChartData)
-        var temp0 = areaChartData.datasets[0]
-        var temp1 = areaChartData.datasets[1]
-        barChartData.datasets[0] = temp1
-        barChartData.datasets[1] = temp0
+        //var barChartData = jQuery.extend(true, {}, areaChartData)
+        var barChartData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+                {
+                    label: 'Digital Goods',
+                    backgroundColor: 'rgba(60,141,188,0.9)',
+
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                },
+                {
+                    label: 'Electronics',
+                    backgroundColor: 'rgba(210, 214, 222, 1)',
+
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                },
+                {
+                    label: 'TestBar',
+                    backgroundColor: 'gold',
+
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                },
+            ]
+        }
 
         var barChartOptions = {
             responsive: true,
@@ -1122,50 +1330,58 @@
             data: barChartData,
             options: barChartOptions
         })
+
         //-------------
         //- PIE CHART -
         //-------------
-        // Get context with jQuery - using jQuery's .get() method.
-        var pieChartCanvas = $('#pieChart1').get(0).getContext('2d')
-        var pieData = {
-            labels: [
-                'Immediate',
-                'High',
-                'Medium',
-                'Low',
-                'None',
-                
-            ],
+    </script>
+
+    
+    <script>
+        //-------------
+        //      //- BAR CHART -
+        //      //-------------
+        var barChartCanvas = $('#saleChart1').get(0).getContext('2d')
+        //var barChartData = jQuery.extend(true, {}, areaChartData)
+        var barChartData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
                 {
-                    data: [700, 500, 400, 600, 300, 100],
-                    backgroundColor: ["#f56954", '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-                }
+                    label: 'Digital Goods',
+                    backgroundColor: 'rgba(60,141,188,0.9)',
+
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                },
+                {
+                    label: 'Electronics',
+                    backgroundColor: 'rgba(210, 214, 222, 1)',
+
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                },
+                {
+                    label: 'TestBar',
+                    backgroundColor: 'gold',
+
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                },
             ]
         }
-        var pieOptions = {
-            legend: {
-                display: false
-            }
+
+        var barChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            datasetFill: false
         }
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        var pieChart = new Chart(pieChartCanvas, {
-            type: 'doughnut',
-            data: pieData,
-            options: pieOptions
+
+        var barChart = new Chart(barChartCanvas, {
+            type: 'bar',
+            data: barChartData,
+            options: barChartOptions
         })
 
-      //-----------------
-      //- END PIE CHART -
-      //-----------------
-
-
-       
-
-
-
-
+                    //-------------
+                    //- PIE CHART -
+                    //-------------
     </script>
 
 }

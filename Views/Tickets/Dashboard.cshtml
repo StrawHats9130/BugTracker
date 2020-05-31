@@ -1,186 +1,291 @@
 ﻿@using BugTracker.Models
 @using BugTracker.Helpers
+@using BugTracker.ViewModel
 
-@model Ticket
+@model TicketDashboardViewModel
 
 @{
     ViewBag.Title = "Dashboard";
 }
-    <div class="content-wrapper">
-        <h2>@Model.Title</h2>
+<div class="content-wrapper">
+    <h2>@Model.Ticket.Title</h2>
 
-        <div class="row mt-4">
-            <nav class="w-100">
-                <div class="nav nav-tabs" id="product-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="product-rating-tab" data-toggle="tab" href="#Tickets-Overview" role="tab" aria-controls="product-rating" aria-selected="false">Ticket</a>
-                    <a class="nav-item nav-link" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Attacments</a>
-                    <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">Notification</a>
-                    <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab" href="#product-rating" role="tab" aria-controls="product-rating" aria-selected="false">Comments</a>
-                    <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab" href="#ticketHistory" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Histories</a>
-                </div>
-            </nav>
-            <div class="tab-content p-3" id="nav-tabContent">
+    <div class="row mt-4">
+        <nav class="w-100">
+            <div class="nav nav-tabs" id="product-tab" role="tablist">
+                <a class="nav-item nav-link active" id="product-rating-tab" data-toggle="tab" href="#Tickets-Overview" role="tab" aria-controls="product-rating" aria-selected="false">Ticket</a>
+                <a class="nav-item nav-link" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Attacments</a>
+                <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">Notification</a>
+                <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab" href="#product-rating" role="tab" aria-controls="product-rating" aria-selected="false">Comments</a>
+                <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab" href="#ticketHistory" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Histories</a>
+            </div>
+        </nav>
+        <div class="tab-content p-3" id="nav-tabContent">
 
-                <div class="tab-pane fade show active" id="Tickets-Overview" role="tabpanel" aria-labelledby="product-rating-tab">
+            <div class="tab-pane fade show active" id="Tickets-Overview" role="tabpanel" aria-labelledby="product-rating-tab">
 
-                    Comments area
+                <div class="card card-success">
+
                     <div class="row">
                         <div class="col">
-                            <table class="table">
-                                <tr>
-                                    <th></th>
-                                    <th>
-                                        @Html.DisplayName("Title")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Submitter")
-                                    </th>
-                                </tr>
-
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        @Html.DisplayFor(m => Model.Title)
-                                    </td>
-                                    <td>
-                                        @*@Html.DisplayFor(m => comment.Created.ToString("MMM, dd yyyy"))*@
-                                        @Html.DisplayFor(m => Model.Submitter.UserName)
-                                    </td>
-
-                                </tr>
-
-
-
-                            </table>
+                            <div class="card-header" style="background-color: cadetblue">
+                                <h3 class="card-title" style="color:chartreuse">Ticket Details</h3>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="tab-pane fade" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
-                    @using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.Hidden("TicketId", Model.Id)
-
-                        <h1> Add An Attachment</h1>
-
+                    <div class="card-body" style=" background-color:darkblue">
                         <div class="row">
                             <div class="col">
-                                @*<input type="file" name="newAttachment" />*@
-                                <div class="form-group">
-                                    <!-- <label for="customFile">Custom File</label> -->
-
-                                    <div class="custom-file">
-                                        <input type="file" name="newAttachment" class="custom-file-input" @*id="customFile"*@>
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
-
-                                    <div>
-                                        <input type="text" name="FileName" placeholder="File Name" />
-                                    </div>
+                                <div class="callout callout-info">
+                                    <h5> @Html.DisplayName("Ticket Title")</h5>
+                                    <hr />
+                                    <p> @Html.DisplayName(Model.Ticket.Title)</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="callout callout-info">
+                                    <h5> @Html.DisplayName("Submitter")</h5>
+                                    <hr />
+                                    <p>  @Html.DisplayFor(m => Model.Ticket.Submitter.UserName)</p>
+                                </div>
+                            </div>
+                            <div class="col-">
+                                <div class="callout callout-info">
+                                    <h5> @Html.DisplayName("Project Name")</h5>
+                                    <hr />
+                                    <p>  @Html.DisplayFor(m => Model.Ticket.Project.Name)</p>
                                 </div>
                             </div>
                         </div>
-                        <div class=" row">
-                            <div class=" col">
-                                <button type="submit" class=" btn btn-outline-dark btn-sm">Save Attachment</button>
+                        <div class="callout callout-info">
+                            <h5> @Html.DisplayName("Description")</h5>
+                            <hr />
+                            <p>  @Html.DisplayFor(m => Model.Ticket.Description)</p>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="callout callout-info">
+                                    <h5> @Html.DisplayName("Ticket Status")</h5>
+                                    <hr />
+                                    <p>  @Html.DisplayName(DisplayHelper.ChangeTicketStatusIdToName(Model.Ticket.TicketStatusId))</p>
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="callout callout-info">
+                                    <h5> @Html.DisplayName("Ticket Priority")</h5>
+                                    <hr />
+                                    <p>  @Html.DisplayName(DisplayHelper.ChangeTicketPriorityIdToName(Model.Ticket.TicketPriorityId))</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="callout callout-info">
+                                    <h5> @Html.DisplayName("Ticket Type")</h5>
+                                    <hr />
+                                    <p>  @Html.DisplayName(DisplayHelper.ChangeTicketTypeIdToName(Model.Ticket.TicketTypeId))</p>
+                                </div>
                             </div>
                         </div>
-                    }
 
-                    <hr />
-                    <div class="row">
-                        <div class="col">
-                            <table class="table">
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+
+
+            </div>
+
+            <div class="tab-pane fade" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+
+                <div class="row">
+                    <div class="col">
+                        <table class="table">
+
+                            <thead>
                                 <tr>
-                                    <th></th>
                                     <th>
                                         @Html.DisplayName("Name")
                                     </th>
                                     <th>
                                         @Html.DisplayName("FilePath")
                                     </th>
+                                    <th></th>
                                 </tr>
-                                @foreach (var attachment in Model.Attachments)
+                            </thead>
+                            <tbody>
+                                @if (User.IsInRole("Dev") || User.IsInRole("Sub"))
                                 {
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <img src="@AttachmentHelper.ShowIcon(attachment.FilePath)" />
-                                        </td>
-                                        <td>
-                                            <a target="_blank" href="@Url.Content(attachment.FilePath)"> @attachment.FileName</a>
-                                        </td>
+                                    if (Model.UsersTicketAttachments.Count == 0)
+                                    {
+                                        <tr>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td></td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        foreach (var attachment in Model.UsersTicketAttachments)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <img src="@AttachmentHelper.ShowIcon(attachment.FilePath)" />
+                                                </td>
+                                                <td>
+                                                    <a target="_blank" href="@Url.Content(attachment.FilePath)"> @attachment.FileName</a>
+                                                </td>
+                                                <td></td>
+                                            </tr>
 
-                                    </tr>
+                                        }
+
+                                    }
 
                                 }
+                                else
+                                {
+                                    if (Model.Ticket.Attachments.Count == 0)
+                                    {
+                                        <tr>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td></td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        foreach (var attachment in Model.Ticket.Attachments)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <img src="@AttachmentHelper.ShowIcon(attachment.FilePath)" />
+                                                </td>
+                                                <td>
+                                                    <a target="_blank" href="@Url.Content(attachment.FilePath)"> @attachment.FileName</a>
+                                                </td>
+                                                <td></td>
+                                            </tr>
 
-                            </table>
-                        </div>
+                                        }
+
+                                    }
+                                }
+                               
+                            </tbody>
+
+                        </table>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
 
-                    Notificaation area
+                @using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("TicketId", Model.Ticket.Id)
+
+                    <h1> Add An Attachment</h1>
+
                     <div class="row">
                         <div class="col">
-                            <table class="table">
+                            @*<input type="file" name="newAttachment" />*@
+                            <div class="form-group">
+                                <!-- <label for="customFile">Custom File</label> -->
+
+                                <div class="custom-file">
+                                    <input type="file" name="newAttachment" class="custom-file-input" @*id="customFile"*@>
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+
+                                <div>
+                                    <input type="text" name="FileName" placeholder="File Name" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row">
+                        <div class=" col">
+                            <button type="submit" class=" btn btn-outline-dark btn-sm">Save Attachment</button>
+                        </div>
+                    </div>
+                }
+
+                <hr />
+
+            </div>
+            <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
+
+                Notificaation area
+                <div class="row">
+                    <div class="col">
+                        <table class="table">
+                            <thead>
                                 <tr>
+                                    <th>
+                                        @Html.DisplayName("Recipient")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Subject")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Discription")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Created On")
+                                    </th>
                                     <th></th>
-                                    <th>
-                                        @Html.DisplayName("Name")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Created with string format")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("Created using the display on the property ")
-                                    </th>
                                 </tr>
-                                @foreach (var notification in Model.Notifications)
+                            </thead>
+                            <tbody>
+                                @foreach (var notification in Model.Ticket.Notifications)
                                 {
                                     <tr>
-                                        <td></td>
                                         <td>
-                                            @Html.DisplayFor(m => notification.Sender.UserName)
+                                            @Html.DisplayFor(m => notification.Recipient.UserName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => notification.Subject)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => notification.NotificationBody)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(m => notification.Created)
                                         </td>
-                                        <td>
-                                            @Html.DisplayFor(m => notification.Created)
-                                        </td>
+                                        <td></td>
                                     </tr>
-
                                 }
+                            </tbody>
 
-                            </table>
-                        </div>
+                        </table>
                     </div>
-
                 </div>
-                <div class="tab-pane fade" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab">
 
-                    Comments area
-                    <div class="row">
-                        <div class="col">
-                            <table class="table">
+            </div>
+            <div class="tab-pane fade" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab">
+                <a href="@Url.Action("Create","TicketComments", new { ticketId = Model.Ticket.Id })" class="nav-link ">
+
+                    <p>Create Ticket Comments</p>
+                </a>
+                @*<p>  @Html.ActionLink("Create Ticket Comment", "Create", "TicketComments", new { Id = Model.Id })</p>*@
+                <div class="row">
+                    <div class="col">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <th></th>
                                     <th>
                                         @Html.DisplayName("Name")
                                     </th>
                                     <th>
                                         @Html.DisplayName("Comment")
                                     </th>
+                                    <th></th>
                                 </tr>
-                                @if (Model.Comments.Count != 0)
+                            </thead>
+                            <tbody>
+
+                                @if (Model.Ticket.Comments.Count != 0)
                                 {
-                                    foreach (var comment in Model.Comments)
+                                    foreach (var comment in Model.Ticket.Comments)
                                     {
                                         <tr>
-                                            <td></td>
                                             <td>
                                                 @Html.DisplayFor(m => comment.User.FullName)
                                             </td>
@@ -188,6 +293,7 @@
                                                 @*@Html.DisplayFor(m => comment.Created.ToString("MMM, dd yyyy"))*@
                                                 @Html.DisplayFor(m => comment.Comment)
                                             </td>
+                                            <td></td>
 
                                         </tr>
 
@@ -196,7 +302,6 @@
                                 else
                                 {
                                     <tr>
-                                        <td></td>
                                         <td>
                                             @Html.DisplayName("N/A")
                                         </td>
@@ -204,49 +309,53 @@
                                             @*@Html.DisplayFor(m => comment.Created.ToString("MMM, dd yyyy"))*@
                                             @Html.DisplayName("N/A")
                                         </td>
+                                        <td></td>
 
                                     </tr>
                                 }
 
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="ticketHistory" role="tabpanel" aria-labelledby="product-rating-tab">
+            </div>
+            <div class="tab-pane fade" id="ticketHistory" role="tabpanel" aria-labelledby="product-rating-tab">
 
-                    Ticket Histories area
-                    <div class="row">
-                        <div class="col">
-                            <table class="table">
+                Ticket Histories area
+                <div class="row">
+                    <div class="col">
+                        <table class="table">
+                            <tr>
+                                <th></th>
+                                <th>
+                                    @Html.DisplayName("Who Changed")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("What Changed")
+                                </th>
+                            </tr>
+                            @foreach (var ticketHistory in Model.Ticket.Histories)
+                            {
                                 <tr>
-                                    <th></th>
-                                    <th>
-                                        @Html.DisplayName("Who Changed")
-                                    </th>
-                                    <th>
-                                        @Html.DisplayName("What Changed")
-                                    </th>
+                                    <td></td>
+                                    <td>
+                                        @Html.DisplayFor(m => ticketHistory.User.FullName)
+                                    </td>
+                                    <td>
+                                        @*@Html.DisplayFor(m => comment.Created.ToString("MMM, dd yyyy"))*@
+                                        @Html.DisplayFor(m => ticketHistory.Property)
+                                    </td>
+
                                 </tr>
-                                @foreach (var ticketHistory in Model.Histories)
-                                {
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            @Html.DisplayFor(m => ticketHistory.User.FullName)
-                                        </td>
-                                        <td>
-                                            @*@Html.DisplayFor(m => comment.Created.ToString("MMM, dd yyyy"))*@
-                                            @Html.DisplayFor(m => ticketHistory.Property)
-                                        </td>
 
-                                    </tr>
+                            }
 
-                                }
-
-                            </table>
-                        </div>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+@section scripts {}
