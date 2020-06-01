@@ -73,7 +73,7 @@ namespace BugTracker.Controllers
 
                 db.TicketAttachments.Add(ticketAttachment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Dashboard","Tickets",new {id= ticketAttachment.TicketID });
             }
 
             ViewBag.TicketID = new SelectList(db.Tickets, "Id", "SubmitterId", ticketAttachment.TicketID);
@@ -109,7 +109,7 @@ namespace BugTracker.Controllers
             {
                 db.Entry(ticketAttachment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Dashboard", "Tickets",new {id= ticketAttachment.TicketID });
             }
             ViewBag.TicketID = new SelectList(db.Tickets, "Id", "SubmitterId", ticketAttachment.TicketID);
             ViewBag.UserID = new SelectList(db.Users, "Id", "FirstName", ticketAttachment.UserID);
@@ -137,9 +137,10 @@ namespace BugTracker.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TicketAttachment ticketAttachment = db.TicketAttachments.Find(id);
+            var ticketId = ticketAttachment.TicketID;
             db.TicketAttachments.Remove(ticketAttachment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Dashboard", "Tickets",new {id = ticketId });
         }
 
         protected override void Dispose(bool disposing)

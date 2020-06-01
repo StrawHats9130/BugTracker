@@ -44,7 +44,7 @@ namespace BugTracker.Controllers
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title");
             ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
             var newTicket = new TicketComment();
-            if (ticketId != null)
+            if (ticketId != 0)
             {
                 newTicket.TicketId = (int)ticketId;
             }
@@ -64,7 +64,7 @@ namespace BugTracker.Controllers
                 ticketComment.Created = DateTime.Now;
                 db.TicketComments.Add(ticketComment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Dashboard", "Tickets", new {id= ticketComment.TicketId });
             }
 
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "SubmitterId", ticketComment.TicketId);
@@ -100,7 +100,7 @@ namespace BugTracker.Controllers
             {
                 db.Entry(ticketComment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Dashboard", "Tickets",new {id= ticketComment.TicketId });
             }
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "SubmitterId", ticketComment.TicketId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketComment.UserId);
@@ -127,10 +127,12 @@ namespace BugTracker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            
             TicketComment ticketComment = db.TicketComments.Find(id);
+            var ticketId = ticketComment.TicketId;
             db.TicketComments.Remove(ticketComment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Dashboard","Tickets", new {id= ticketId});
         }
 
         protected override void Dispose(bool disposing)

@@ -1,0 +1,108 @@
+10:44:25	 From  Trevor Popham : Ahh forgot about htmlAttributes
+10:46:02	 From  Jason Twichell : I was lying about the Quiz...I got those questions wrong because I didn't read them carefully enough :(
+11:37:07	 From  Ashton Wray : But oh so powerful, lol
+12:07:39	 From  craig hoffman : wheres the audio
+12:08:37	 From  Drew Russell : I think they're using Teams for audio and Zoom for screen share
+12:09:26	 From  craig hoffman : k
+12:09:28	 From  Brian Quinn : i'm here
+12:09:47	 From  Terri : I'm here just off camera
+12:10:00	 From  Drew Russell : she's having a styling issue so keeping it quiet for everyone else
+12:29:51	 From  Brian Quinn : Hey if anyone wanted to use a helper for all those file type icons & don't feel like typing out 90 switch cases, give me about 15 minutes and I'll have a zip with the Helper class & all the icons!
+12:33:36	 From  Crusher of all things Fun : yeah we just fixed that
+12:34:00	 From  craig hoffman : sweet brian!
+12:34:06	 From  Terri : Thanks, Brian.  I stopped around 15 so I would love to have that work done for me =D Thank you
+12:34:09	 From  Crusher of all things Fun : she is sharing in Teams now
+12:34:14	 From  Ashton Wray : thanks Brian!!
+12:35:07	 From  Ethan Nance : Excellent work, Brian! Thank you!
+12:35:47	 From  Crusher of all things Fun : im thinking of having a breakout session on extending the registration to allow new users to add a custom Avatar
+12:36:01	 From  Crusher of all things Fun : also, quick styling questions can be asked in the classroom
+12:36:05	 From  Matthew Wendel : dat name
+12:36:22	 From  Ashton Wray : I'm in
+12:40:06	 From  craig hoffman : does anyone have an idea of which video Jason went over creating a custom logoff action in the accounts controller?
+12:40:34	 From  craig hoffman : im also interested in the custom avatar breakout jason
+12:40:45	 From  Crusher of all things Fun : ok it has been scheduled for 3pm
+12:40:57	 From  Matthew Wendel : thank you!
+12:49:57	 From  Ashton Wray : Thank you Mr. Crusher
+12:50:07	 From  Crusher of all things Fun : a custom logoff method... just copy and pasted the original Logoff and change it to an HttpGet and call it CustomLogoff
+12:50:46	 From  Crusher of all things Fun : be sure to remove the ValidateAntiForgheryToken annotation
+12:54:22	 From  Ben   to   Allison(Privately) : I can share the code if you like?
+15:51:24	 From  Katie Rosario : I’ll record and post for anyone
+15:55:27	 From  Ashton Wray : Thank you Katie!!
+15:55:57	 From  Ben : Thank you ma'am
+16:00:59	 From  craig hoffman : I need some assistance Jason when ur done please
+16:05:08	 From  Ashton Wray : Having the same problem here
+16:05:44	 From  Trevor Popham : Check if your other websites are still live
+16:05:48	 From  Allison : I'm gonna leave the group chat to go over the avatar session again. I'll be on teams still and looking at the chat here occasionally. 
+16:07:58	 From  Terri : FYI the original publish walkthrough video was posted in Curriculum on May 1
+16:08:45	 From  Terri : I'm going to leave here so I can watch it and follow along.
+16:16:06	 From  Ben : Sandard and S0 are the selections Correct?
+16:16:58	 From  Katie Rosario : I’m almost positive. That’s what I chose.
+16:17:06	 From  Ben : o thanks
+16:17:09	 From  Ben : ok
+16:18:32	 From  craig hoffman : where do we add the firewall rule ?
+16:19:42	 From  Josh Casteel : on your server
+16:20:23	 From  Josh Casteel : you can access it through the blog post stuff too
+16:20:36	 From  Josh Casteel : firewall rules are server wide I believe
+16:20:47	 From  Terri : Do we create a new server every time we publish or if TFrid  (East US) is already displaying do I go on to the next step?
+16:20:55	 From  Josh Casteel : same server
+16:21:19	 From  Terri : that makes sense to me.  1 server, multiple databases
+16:21:26	 From  Terri : Thanks
+16:22:40	 From  Josh Casteel : stepping away while waiting for publish
+16:25:27	 From  Crusher of all things Fun : we do not create a new Server only new DB's on Azure
+16:26:07	 From  Trevor Popham : There was that and that if he dropped a 1000 dollar bill it literally would not be worth his time to turn around and pick it up
+16:26:34	 From  Lawson Ott : https://youtu.be/qSOVBiEotaw
+16:27:44	 From  Lawson Ott : but bill gates USES his McDonald's free-food-for-life card , cheap @$$ lmao
+16:28:37	 From  Shane Corthum : whattttttttttttttttttttttttttttttttttttt
+16:28:58	 From  Shane Corthum : well if it were a tacobell card....
+16:29:18	 From  Josh Casteel : lol shane
+16:30:02	 From  Lawson Ott : https://www.businessinsider.com/real-story-behind-mcdonalds-gold-card-2015-11
+16:30:19	 From  Shane Corthum : ^^^Lawson that video 
+16:30:29	 From  Shane Corthum : freakin hate rice now
+16:30:54	 From  Lawson Ott : think about the video maker. he had to count that all in real time
+16:35:07	 From  Matthew Wendel : ugg deploying to IIS and SQL is not fun :(
+16:37:46	 From  Brian Quinn : Matt dude, this bundler crap, i'm now experiencing why you just said screw it
+16:42:55	 From  Matthew Wendel : yes
+16:43:13	 From  Matthew Wendel : unless you're using a LARGE number of files, it is rather pointless.
+16:43:45	 From  Matthew Wendel : i could see it's use if your site has THOUSANDS of simultaneous users. but in our use case, it is another point of failure to worry about
+16:44:35	 From  Matthew Wendel : or maybe for js/css components that require a large number of files
+16:44:52	 From  Matthew Wendel : where a bundler will further shrink the content vs minification
+16:47:01	 From  Katie Rosario : Ethan I am posting the video now. It’s a large file. Make take a while
+16:50:12	 From  Ethan Nance : Thank you. I found the one for the blog publish on Teams, but if there's any issues, I'll use your video as reference as well.
+16:50:22	 From  Matthew Wendel : i'm usually always on discord if anyone needs help and sees a green dot (and i'm not playing a game 😀) feel free to hit me up!
+16:50:35	 From  Ashton Wray : Don't scratch!!
+16:50:51	 From  Drew Russell : I'm trying
+16:50:52	 From  Drew Russell : so hard
+16:51:07	 From  Drew Russell : most of it is no big deal, but inner bicep
+16:52:59	 From  Lawson Ott : smear THIS on the spot and surrounding area... won't feel any itching... be sure to wash hands real good before using the water closet though!https://www.walmart.com/ip/Equate-Max-Strength-Pain-Relieving-Cream-2-7-oz/692263008
+16:53:39	 From  Shane Corthum : slap drew slap
+16:53:52	 From  Ashton Wray : lol, water closet!
+16:54:15	 From  Lawson Ott : international word for bathroom
+16:54:34	 From  Katie Rosario : Sorry guys I dropped that in the wrong place!
+16:54:43	 From  Ashton Wray : it's been so long since I heard it referred to like that
+16:55:11	 From  Matthew Wendel : oops D:
+16:55:42	 From  Katie Rosario : But if anyone wants to tell me what I did wrong, LOL
+16:55:54	 From  Drew Russell : I have no idea
+16:55:58	 From  Drew Russell : but I know why you got that
+16:56:20	 From  Drew Russell : your live site threw an error (not sure what) but because it's the live site it doesn't display the full error
+16:56:45	 From  Drew Russell : Once this is done please grab the screen, you won't be the only one to get that
+16:56:52	 From  Katie Rosario : booo. i’ll try to run It locally
+16:57:00	 From  Katie Rosario : Will do
+16:57:02	 From  Lawson Ott : did you move your db to azure b4 running your site, katie?
+16:57:13	 From  Katie Rosario : I believe so
+16:57:16	 From  Shane Corthum : go katie go
+16:57:26	 From  Lawson Ott : and use new connection string?
+16:57:40	 From  Josh Casteel : Gonna drop and reference some videos. Hope everyone has a great weekend. Feel free to hit me up on discord/teams. I'll probably be coding all weekend.
+17:00:00	 From  craig hoffman : cya josh
+17:02:11	 From  Ashton Wray : milk in tea is standard
+17:02:36	 From  Ben : opps I forgot to comment out my old connection string.... 
+17:05:28	 From  Allison : Where was the original publish video? Not seeing it
+17:06:10	 From  Ethan Nance : Curriculum channel in Teams. It was posted on 5/1/20.
+17:06:43	 From  Allison : Thanks
+17:06:52	 From  Ethan Nance : No problem!
+17:09:30	 From  Ashton Wray : lol
+17:10:46	 From  Lawson Ott : slowly watching Mr. Robot on prime. one show t make you say WTF out loud 3-5 times per episode.
+17:11:08	 From  Katie Rosario : The publishing video shouldld be up now
+17:12:18	 From  Katie Rosario : I posted the wrong video LOL. I’ll try again
+17:15:12	 From  Shane Corthum : more hw?
+17:15:24	 From  Shane Corthum : yessssss i love it i feel like an overload method now
+17:18:50	 From  Ashton Wray : lol

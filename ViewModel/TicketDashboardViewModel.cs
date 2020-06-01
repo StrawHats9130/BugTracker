@@ -12,7 +12,6 @@ namespace BugTracker.ViewModel
         public Ticket Ticket { get; set; }
         public ICollection<TicketComment> UsersTicketComments { get; set; }
         public ICollection<TicketAttachment> UsersTicketAttachments { get; set; }
-
         public ICollection<TicketNotification> UserTicketNotifications { get; set; }
 
 

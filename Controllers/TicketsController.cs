@@ -259,7 +259,15 @@ namespace BugTracker.Models
 
 
             var newTicket = db.Tickets.Find(ticketId);
-            newTicket.DeveloperId = developerId;
+            if (developerId == "")
+            {
+            newTicket.DeveloperId = null;
+
+            }
+            else
+            {
+                newTicket.DeveloperId = developerId;
+            }
             newTicket.TicketTypeId = ticketTypeId;
             newTicket.TicketPriorityId = ticketPriorityId;
             newTicket.TicketStatusId = ticketStatusId;

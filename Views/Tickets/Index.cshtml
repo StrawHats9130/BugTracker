@@ -9,9 +9,9 @@
 <div class="content-wrapper">
     <h2>Index</h2>
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
 
     <!-- original Scafold taable-->
     <section>
@@ -160,6 +160,7 @@
 
                             <th> @Html.DisplayName("Type")</th>
                             <th> @Html.DisplayName("Priority")</th>
+                            @*<th> @Html.DisplayNameFor(model => model.Ticket.IsArchived)</th>*@
                             <th></th>
                             <th> @Html.DisplayNameFor(model => model.Ticket.Created)</th>
                             <th></th>
@@ -181,7 +182,7 @@
                                     {
                                         @Html.Hidden("DeveloperId", item.Ticket.DeveloperId)
                                         @Html.Hidden("TicketStatusId", item.Ticket.TicketStatusId)
-                                       
+                                        @Html.Hidden("IsArchieved", item.Ticket.IsArchived)
                                     }
                                     <td>
                                         @if (User.IsInRole("Sub") || User.IsInRole("Dev"))
@@ -195,7 +196,7 @@
 
                                     </td>
                                     <td>
-                                        @if (User.IsInRole("Sub") )
+                                        @if (User.IsInRole("Sub"))
                                         {
                                             @Html.DisplayName(DisplayHelper.ChangeTicketStatusIdToName(item.Ticket.TicketStatusId))
                                         }
@@ -210,10 +211,13 @@
                                     </td>
 
                                     <td>
-                                            @Html.DropDownList("TicketPriorityId", item.TicketPriority)
+                                        @Html.DropDownList("TicketPriorityId", item.TicketPriority)
                                     </td>
+                                    @*<td >
+                                        @Html.CheckBox("IsArchived", item.Ticket.IsArchived)
+                                    </td>*@
                                     <td>
-                                        <button type="submit" class="btn btn-outline-dark btn-sm">Save</button>
+                                        <button type="submit" class=" btn btn-outline-dark btn-sm">Save</button>
                                     </td>
 
                                 }
