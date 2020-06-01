@@ -34,6 +34,7 @@ namespace BugTracker.Controllers
             //    model.FullName = user.FullName;
             model.Id = userId;
             model.ProjectsIn = projHelper.ListUserProjects(userId);
+            model.ProjectsOut = db.Projects.ToList();
 
             model.TicketsIn = ticketHelper.ListMyTickets();
             model.TicetsOut = ticketHelper.ListTicketsNotBelongingToUser();

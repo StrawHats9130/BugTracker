@@ -13,70 +13,72 @@
         @Html.ActionLink("Create New", "Create", "Tickets")
     </p>
     <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayName("Title")
-            </th>
-            <th>
-                @Html.DisplayName("Description")
-            </th>
-            <th>
-                @Html.DisplayName("Submitter")
-            </th>
-            <th>
-                @Html.DisplayName("Developer")
-            </th>
-            <th>
-                @Html.DisplayName("Ticket Status")
-            </th>
-            <th>
-                @Html.DisplayName("Ticket Type")
-            </th>
-            <th>
-                @Html.DisplayName("Ticket Priorty")
-            </th>
-            <th>
-                @Html.DisplayName("Created")
-            </th>
-
-            <th>
-                @Html.DisplayName("Archived")
-            </th>
-
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model.TicketsIn)
-        {
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Submitter.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Developer.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TicketStatus.Name)
-                </td>
-                <td>
-                    @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
-                        @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Create Ticket", "Create", "Ticket", new { projectId = item.Project.ProjectManagerId })*@
+                <th>
+                    @Html.DisplayName("Title")
+                </th>
+                <th>
+                    @Html.DisplayName("Description")
+                </th>
+                <th>
+                    @Html.DisplayName("Submitter")
+                </th>
+                <th>
+                    @Html.DisplayName("Developer")
+                </th>
+                <th>
+                    @Html.DisplayName("Ticket Status")
+                </th>
+                <th>
+                    @Html.DisplayName("Ticket Type")
+                </th>
+                <th>
+                    @Html.DisplayName("Ticket Priorty")
+                </th>
+                <th>
+                    @Html.DisplayName("Created")
+                </th>
 
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <th>
+                    @Html.DisplayName("Archived")
+                </th>
+
+                <th></th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model.TicketsIn)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Submitter.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Developer.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketStatus.Name)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
+                    @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Create Ticket", "Create", "Ticket", new { projectId = item.Project.ProjectManagerId })*@
 
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
     </table>
     <div class="card card-success">
         <div class="card-header">
@@ -1336,7 +1338,7 @@
         //-------------
     </script>
 
-    
+
     <script>
         //-------------
         //      //- BAR CHART -
@@ -1379,9 +1381,9 @@
             options: barChartOptions
         })
 
-                    //-------------
-                    //- PIE CHART -
-                    //-------------
+                            //-------------
+                            //- PIE CHART -
+                            //-------------
     </script>
 
 }

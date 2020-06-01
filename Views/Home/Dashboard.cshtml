@@ -149,7 +149,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Browser Usage</h3>
+            <h3 class="card-title">Ticket Priority</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -174,11 +174,12 @@
                 <!-- /.col -->
                 <div class="col-md-4">
                     <ul class="chart-legend clearfix">
-                        <li><i class="far fa-circle text-danger"></i> Chrome</li>
-                        <li><i class="far fa-circle text-success"></i> IE</li>
-                        <li><i class="far fa-circle text-warning"></i> FireFox</li>
-                        <li><i class="far fa-circle text-info"></i> Safari</li>
-                        <li><i class="far fa-circle text-primary"></i> Opera</li>
+
+                        <li><i class="far fa-circle text-danger"></i> Immediate</li>
+                        <li><i class="far fa-circle text-success"></i> 'High</li>
+                        <li><i class="far fa-circle text-warning"></i> Medium</li>
+                        <li><i class="far fa-circle text-info"></i> Low</li>
+                        <li><i class="far fa-circle text-primary"></i> None</li>
 
                     </ul>
                 </div>
@@ -219,32 +220,37 @@
         <!-- /.footer -->
     </div>
 
+    @if (User.IsInRole("Admin") || User.IsInRole("PM"))
+    {
 
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Project")
+                    </th>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayName("Project")
-                </th>
-
-                <th>
-                    @Html.DisplayName("Created")
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.ProjectsIn)
-            {
+                    <th>
+                        @Html.DisplayName("Created")
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ProjectsOut)
+                {
                 <tr>
                     <td>
+                        @Html.ActionLink($"{item.Name }", "Details", "Projects", new { id = item.Id }, new { @class = "nav-link" })
 
-                        <a href="@Url.Action("Details","Projects" ,new { id = item.Id })" class="nav-link ">
+                    </td>
+                    @*<td>
+                     
+                       
+                            @Html.DropDownList("DeveloperId", item.DeveloperId)
+                      
 
-                            <p>@item.Name </p>
-                        </a>
-
+                    </td>*@
                     <td>
                         <a href="#" class="nav-link ">
 
@@ -254,8 +260,8 @@
 
                     <td>
                         @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
-                            @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
-                            @Html.ActionLink("Create New", "Create", "Tickets")*@
+            @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Create New", "Create", "Tickets")*@
 
                         @if (User.IsInRole("Sub"))
                         {
@@ -267,14 +273,77 @@
                         }
                     </td>
                 </tr>
-            }
+                }
 
-        </tbody>
+            </tbody>
 
-    </table>
+        </table>
+    }
 
+    @if (User.IsInRole("Dev") || User.IsInRole("Sub"))
+    {
 
-    <h2>My Tickets</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Project")
+                    </th>
+
+                    <th>
+                        @Html.DisplayName("Created")
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ProjectsIn)
+                {
+                    <tr>
+                        <td>
+
+                            <a href="@Url.Action("Details","Projects" ,new { id = item.Id })" class="nav-link ">
+
+                                <p>@item.Name </p>
+                            </a>
+
+                        <td>
+                            <a href="#" class="nav-link ">
+
+                                <p>@item.Created </p>
+                            </a>
+                        </td>
+
+                        <td>
+                            @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
+                                @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Create New", "Create", "Tickets")*@
+
+                            @if (User.IsInRole("Sub"))
+                            {
+                                <a href="@Url.Action("Create", "Tickets", new { projectId = item.Id })" class="nav-link ">
+
+                                    <p>Create Ticket</p>
+                                </a>
+
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    }
+
+    @if (User.IsInRole("Dev") || User.IsInRole("Sub"))
+    {
+        <h2>My Tickets</h2>
+    }
+    @if (User.IsInRole("Admin") || User.IsInRole("PM"))
+    {
+        <h2>All Tickets</h2>
+    }
 
     <table class="table">
         <thead>
@@ -339,35 +408,36 @@
         //- PIE CHART -
         //-------------
         // Get context with jQuery - using jQuery's .get() method.
-        var pieChartCanvas = $('#pieChart1').get(0).getContext('2d')
-        var pieData = {
-            labels: [
-                'Chrome',
-                'IE',
-                'FireFox',
-                'Safari',
-                'Opera',
-                'Navigator',
-            ],
-            datasets: [
-                {
-                    data: [700, 500, 400, 600, 300, 100],
-                    backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-                }
-            ]
-        }
-        var pieOptions = {
-            legend: {
-                display: false
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetTicketPriorityPieChatData", "Chart")',
+            dataType: "Json"
+        }).then(function (response) {
+            var pieChartCanvas = $('#pieChart1').get(0).getContext('2d')
+            var pieData = {
+                labels: response.Lables,
+
+                datasets: [
+                    {
+
+                        data: response.Data,
+                        backgroundColor: response.BackgroundColor,
+                    }
+                ]
             }
-        }
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        var pieChart = new Chart(pieChartCanvas, {
-            type: 'doughnut',
-            data: pieData,
-            options: pieOptions
-        })
+            var pieOptions = {
+                legend: {
+                    display: false
+                }
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            var pieChart = new Chart(pieChartCanvas, {
+                type: 'doughnut',
+                data: pieData,
+                options: pieOptions
+            })
+        });
 
       //-----------------
       //- END PIE CHART -
