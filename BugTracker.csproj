@@ -191,6 +191,7 @@
     <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\ProjectsHelper.cs" />
     <Compile Include="Helpers\TicketHelper.cs" />
+    <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="ViewModel\TicketDashboardViewModel.cs" />
     <Compile Include="ViewModel\TicketIndexViewModel.cs" />
     <Compile Include="Helpers\UserRolesHelper.cs" />
@@ -358,6 +359,7 @@
     <None Include="Properties\PublishProfiles\YaremaBugTracker - Web Deploy.pubxml" />
     <Content Include="Views\Tickets\Dashboard.cshtml" />
     <Content Include="Views\Account\DemoLogin.cshtml" />
+    <Content Include="Views\Home\TestDashboardView.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

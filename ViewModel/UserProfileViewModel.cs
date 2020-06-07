@@ -1,8 +1,10 @@
-﻿using BugTracker.Models;
+﻿using BugTracker.Helpers;
+using BugTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace BugTracker.ViewModel
 {
@@ -24,7 +26,12 @@ namespace BugTracker.ViewModel
         public ICollection<Project> ProjectsOut { get; set; }
         public ICollection<Ticket> TicketsIn { get; set; }
         public ICollection<Ticket> TicetsOut { get; set; }
+        public ICollection<TicketIndexViewModel> TicketsVM { get; set; }
+        public ICollection<ProjectViewModel> ProjectVM { get; set; }
 
+        public IEnumerable<SelectListItem> ProjectDevelopers { get; set; }
+        public IEnumerable<SelectListItem> ProjectSubmitter { get; set; }
+        public IEnumerable<SelectListItem> ProjectPojectManagers { get; set; } 
         #endregion
 
         #region In Drews View Model not sure If I will need it so I put it here
