@@ -177,19 +177,19 @@
                                                                         </div>
                                                                     </div>
                                                                     @*<div class="col">
-                                                                    <div class="callout callout-info">
-                                                                        <h5> @Html.DisplayName("Ticket Priority")</h5>
-                                                                        <hr />
-                                                                        <p>  @Html.DisplayName(DisplayHelper.ChangeTicketPriorityIdToName(Model.Ticket.TicketPriorityId))</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <div class="callout callout-info">
-                                                                        <h5> @Html.DisplayName("Ticket Type")</h5>
-                                                                        <hr />
-                                                                        <p>  @Html.DisplayName(DisplayHelper.ChangeTicketTypeIdToName(Model.Ticket.TicketTypeId))</p>
-                                                                    </div>
-                                                                </div>*@
+                                                                            <div class="callout callout-info">
+                                                                                <h5> @Html.DisplayName("Ticket Priority")</h5>
+                                                                                <hr />
+                                                                                <p>  @Html.DisplayName(DisplayHelper.ChangeTicketPriorityIdToName(Model.Ticket.TicketPriorityId))</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col">
+                                                                            <div class="callout callout-info">
+                                                                                <h5> @Html.DisplayName("Ticket Type")</h5>
+                                                                                <hr />
+                                                                                <p>  @Html.DisplayName(DisplayHelper.ChangeTicketTypeIdToName(Model.Ticket.TicketTypeId))</p>
+                                                                            </div>
+                                                                        </div>*@
                                                                 </div>
 
                                                             </div>
@@ -215,9 +215,9 @@
                                         @Html.Hidden("Created", item.Project.Created)
 
                                         @*@Html.Hidden("DeveloperId", item.Project.DeveloperId)
-                                    @Html.Hidden("SubmitterId", item.Project.SubmitterId)
-                                    @Html.Hidden("ProjectManagerId", item.Project.ProjectManagerId)
-                                    @Html.Hidden("IsArchieved", item.Project.IsArchived)*@
+                                            @Html.Hidden("SubmitterId", item.Project.SubmitterId)
+                                            @Html.Hidden("ProjectManagerId", item.Project.ProjectManagerId)
+                                            @Html.Hidden("IsArchieved", item.Project.IsArchived)*@
 
                                         <td>
                                             @Html.DropDownList("DeveloperId", item.Developer)
@@ -243,8 +243,8 @@
 
                                         <td>
                                             @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
-                                        @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
-                                        @Html.ActionLink("Create New", "Create", "Tickets")*@
+                                                @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
+                                                @Html.ActionLink("Create New", "Create", "Tickets")*@
 
                                             @Html.ActionLink("Details", "Details", "Projects", new { id = item.Project.Id }, new { @class = "nav-link" })
                                             @*@Html.ActionLink("Details", "Projects", new { id = item.Project.Id })*@
@@ -259,8 +259,8 @@
 
                                         <td>
                                             @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
-                                        @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
-                                        @Html.ActionLink("Create New", "Create", "Tickets")*@
+                                                @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
+                                                @Html.ActionLink("Create New", "Create", "Tickets")*@
                                             @Html.ActionLink("Create Tickets ", "Create", "Tickets", new { projectId = item.Project.Id }, new { @class = "nav-link " })
 
 
@@ -327,8 +327,8 @@
 
                                     <td>
                                         @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
-                                    @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
-                                    @Html.ActionLink("Create New", "Create", "Tickets")*@
+                                            @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
+                                            @Html.ActionLink("Create New", "Create", "Tickets")*@
 
                                         @if (User.IsInRole("Sub"))
                                         {
@@ -436,11 +436,11 @@
 
             </div>
         </div>
-    <!--Tab End -->
+        <!--Tab End -->
+
+    </div>
 
 </div>
-
-
 
 
 @section scripts {

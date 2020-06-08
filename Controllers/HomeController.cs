@@ -238,14 +238,97 @@ namespace BugTracker.Controllers
             var model = new UserProfileViewModel();
             var userId = User.Identity.GetUserId();
             var user = db.Users.Find(userId);
-        //    model.AvitarPath = user.AvatarPath;
-        //    model.FullName = user.FullName;
+
+            var ticketIndexVMs = new List<TicketIndexViewModel>();
+            var projectVMs = new List<ProjectViewModel>();
+            var allTickets = db.Tickets.ToList();
+            var allPojects = db.Projects.ToList();
+            var myTickets = ticketHelper.ListMyTickets();
+            var developers = roleHelper.UsersInRole("Dev").ToList();
+            var submitters = roleHelper.UsersInRole("Sub").ToList();
+            var projectManagers = roleHelper.UsersInRole("PM").ToList();
+
+            if (User.IsInRole("Dev") || User.IsInRole("Sub"))
+            {
+                foreach (var ticket in myTickets)
+                {
+                    var ticketComments = new List<TicketComment>();
+
+                    foreach (var comment in ticket.Comments)
+                    {
+                        if (comment.UserId == userId)
+                        {
+                            ticketComments.Add(comment);
+                        }
+                    }
+                    ticketIndexVMs.Add(new TicketIndexViewModel
+                    {
+                        Ticket = ticket,
+                        TicketStatus = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId),
+                        TicketPriority = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId),
+                        TicketType = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId),
+                        Developer = new SelectList(developers, "Id", "Email", ticket.DeveloperId),
+                        MyTicketComments = ticketComments
+                    });
+                }
+            }
+
+            if (User.IsInRole("Admin") || User.IsInRole("PM"))
+            {
+                foreach (var project in allPojects)
+                {
+                    projectVMs.Add(new ProjectViewModel
+                    {
+                        Project = project,
+                        Developer = new SelectList(developers, "Id", "Email", project.DeveloperId),
+                        Submitter = new SelectList(submitters, "Id", "Email", project.SubmitterId),
+                        ProjectManger = new SelectList(projectManagers, "Id", project.ProjectManagerId)
+
+                    });
+
+
+
+                }
+
+                foreach (var ticket in allTickets)
+                {
+
+
+                    ticketIndexVMs.Add(new TicketIndexViewModel
+                    {
+                        Ticket = ticket,
+                        TicketStatus = new SelectList(db.TicketStatus, "Id", "Name", ticket.TicketStatusId),
+                        TicketPriority = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId),
+                        TicketType = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId),
+                        Developer = new SelectList(developers, "Id", "Email", ticket.DeveloperId),
+
+                    });
+                }
+            }
+
+
+
+
+
+            //var model = new UserProfileViewModel();
+            //var userId = User.Identity.GetUserId();
+            //var user = db.Users.Find(userId);
+            //    model.AvitarPath = user.AvatarPath;
+            //    model.FullName = user.FullName;
             model.Id = userId;
             model.ProjectsIn = projHelper.ListUserProjects(userId);
-           
+            model.ProjectsOut = db.Projects.ToList();
             model.TicketsIn = ticketHelper.ListMyTickets();
             model.TicetsOut = ticketHelper.ListTicketsNotBelongingToUser();
             model.Role = roleHelper.ListUserRoles(userId).FirstOrDefault();
+            model.TicketsVM = ticketIndexVMs;
+            model.ProjectVM = projectVMs;
+            //foreach (var project in model.ProjectsOut)
+            //{
+
+            //}
+
+
 
             return View(model);
         }
