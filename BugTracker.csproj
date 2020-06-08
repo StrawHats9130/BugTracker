@@ -192,6 +192,7 @@
     <Compile Include="Helpers\ProjectsHelper.cs" />
     <Compile Include="Helpers\TicketHelper.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
+    <Compile Include="ViewModel\BarChartResponsiveViewModel.cs" />
     <Compile Include="ViewModel\TicketDashboardViewModel.cs" />
     <Compile Include="ViewModel\TicketIndexViewModel.cs" />
     <Compile Include="Helpers\UserRolesHelper.cs" />

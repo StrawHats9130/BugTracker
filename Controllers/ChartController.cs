@@ -28,14 +28,55 @@ namespace BugTracker.Controllers
             return Json(pieChartViewModel);
 
         }
-        //var pieChartCanvas = $('#pieChart1').get(0).getContext('2d')
-        //var pieData = { labels: [ 'Immediate',  'High', 'Medium', 'Low', 'None',  ],
 
-        //    datasets: [
-        //        {
-        //            data: [700, 500, 400, 600, 300, 100],
-        //            backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        //        }
-        //    ]
+        
+
+        public JsonResult GetTicketPriorityBarChatData()
+        {
+            var barChartViewModel = new BarChartResponsiveViewModel();
+            var priorities = db.TicketPriorities.ToList();
+            var ticket = db.Tickets.ToList();
+            var i = 10;
+            var x = 10;
+            var y = 10;
+           
+
+           barChartViewModel.BackgroundColor1 = "Gold";
+            barChartViewModel.BackgroundColor2 = "Red";
+            barChartViewModel.BackgroundColor3 = "Green";
+
+            barChartViewModel.LabelType1 = "Test Label 1"; 
+            barChartViewModel.LabelType2 = "Test Label 2"; 
+            barChartViewModel.LabelType3 = "Test Label 3";
+
+            foreach (var priority in priorities)
+            {
+                barChartViewModel.Labels.Add(priority.Name);
+               
+                var ticketPriorityCount = ticket.Where(tp => tp.TicketPriorityId == priority.Id).ToList().Count;
+                ticketPriorityCount += i;
+                barChartViewModel.DataSet1.Add(ticketPriorityCount);
+                i += 5;
+            }
+            foreach (var priority in priorities)
+            {
+                var ticketPriorityCount = ticket.Where(tp => tp.TicketPriorityId == priority.Id).ToList().Count;
+                ticketPriorityCount += i;
+                barChartViewModel.DataSet2.Add(ticketPriorityCount);
+                x += 7;
+            }
+            foreach (var priority in priorities)
+            {
+                var ticketPriorityCount = ticket.Where(tp => tp.TicketPriorityId == priority.Id).ToList().Count;
+                ticketPriorityCount += i;
+                barChartViewModel.DataSet3.Add(ticketPriorityCount);
+                y += 6;
+            }
+
+
+            return Json(barChartViewModel);
+
+        }
+
     }
 }

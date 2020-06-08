@@ -1,90 +1,490 @@
-﻿
+﻿@using BugTracker.ViewModel
+@using BugTracker.Helpers
+
+@model UserProfileViewModel
+
+
+
 @{
-    ViewBag.Title = "TestDashboardView";
+    ViewBag.Title = "UserProfile";
 }
 
-<h2>TestDashboardView</h2>
+<div class="content-wrapper">
+    <h2>User Dashboard</h2>
 
-<h2 data-toggle="modal" data-target="#inviteMember" class="btn">HouseHoldDashboard</h2>
-@if (User.IsInRole("BigChief"))
-{
-    <div class="row">
 
-        <div class="col">
-            @*@Html.ActionLink("invite Member", "Join", "Households", new { @class = "btn btn-outline-success" })*@
+    <!--Chart area-->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Ticket Priority</h3>
 
-            <button data-toggle="modal" data-target="#inviteMember" class="btn btn-outline-warning">Invite New Member</button>
-        </div>
-    </div>
-
-}
-
-<div class="row">
-
-    <div class="col">
-        @*@Html.ActionLink("invite Member", "Join", "Households", new { @class = "btn btn-outline-success" })*@
-
-        @*<button data-toggle="modal" data-target="#inviteMember1" class="btn btn-outline-warning">Invite New Member</button>*@
-    </div>
-</div>
-<div>
-
-</div>
-
-<!-- Modal-->
-<!-- The Modal -->
-<div class="modal" id="inviteMember">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Create an inventation to the HouseHold</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="chart-responsive">
+                        <canvas id="pieChart1" height="50"></canvas>
+                    </div>
 
-            <!-- Modal body -->
-            <div class="modal-body">
 
-                @using (Html.BeginForm("CreateAsync", "Invitations"))
+                    <!-- ./chart-responsive -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                    <ul class="chart-legend clearfix">
+
+                        <li><i class="far fa-circle text-danger"></i> Immediate</li>
+                        <li><i class="far fa-circle text-success"></i> 'High</li>
+                        <li><i class="far fa-circle text-warning"></i> Medium</li>
+                        <li><i class="far fa-circle text-info"></i> Low</li>
+                        <li><i class="far fa-circle text-primary"></i> None</li>
+
+                    </ul>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+
+    </div>
+    <!-- Chart area End-->
+    <!--Begin Tabs area  -->
+    <div class="row mt-4">
+        <nav class="w-100">
+            <div class="nav nav-tabs" id="product-tab" role="tablist">
+                <a class="nav-item nav-link active" id="product-rating-tab" data-toggle="tab" href="#Tab1" role="tab" aria-controls="product-rating" aria-selected="false">Project</a>
+                <a class="nav-item nav-link " id="product-rating-tab" data-toggle="tab" href="#Tab2" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Details</a>
+                <a class="nav-item nav-link " id="product-rating-tab" data-toggle="tab" href="#Tab3" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Details</a>
+                <a class="nav-item nav-link " id="product-rating-tab" data-toggle="tab" href="#Tab4" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Details</a>
+                <a class="nav-item nav-link " id="product-rating-tab" data-toggle="tab" href="#Tab5" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Details</a>
+
+            </div>
+        </nav>
+        <!--Tab Begin  -->
+        <div class="tab-content p-3" id="nav-tabContent">
+
+            <div class="tab-pane fade show active" id="Tab1" role="tabpanel" aria-labelledby="product-rating-tab">
+
+
+                @if (User.IsInRole("Admin") || User.IsInRole("PM"))
                 {
-                    @Html.AntiForgeryToken()
 
-                    <div class="form-group">
-                        @Html.Label("Recipient", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.Editor("RecipientEmail", new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.Label("Subject", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.Editor("Subject", new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.Label("Body", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.Editor("Body", new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Invite" class="btn btn-default" />
-                        </div>
-                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Project")
+                                </th>
+
+                                <th>
+                                    @Html.DisplayName("Created")
+                                </th>
+
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>
+
+                                </th>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <th></th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ProjectVM)
+                            {
+                                <tr>
+                                    <td>
+
+
+                                        <a href="#" onclick="$('#@item.Project.Id').modal('toggle')" data-toggle="modal" data-target="#@item.Project.Id" class="btn ">@item.Project.Name</a>
+
+                                        <!-- The Modal -->
+                                        <div class="modal" id="@item.Project.Id">
+                                            <div class="modal-dialog modal-xl">
+                                                <div class="modal-content">
+
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">@item.Project.Name</h4>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+
+
+                                                        <div><h3>I hope I can see this</h3></div>
+
+                                                        <div class="card card-success">
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="card-header" style="background-color: cadetblue">
+                                                                        <h3 class="card-title" style="color:chartreuse">Ticket Details</h3>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="card-body" style=" background-color:darkblue">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="callout callout-info">
+                                                                            <h5> @Html.DisplayName("Ticket Title")</h5>
+                                                                            <hr />
+                                                                            <p> @Html.DisplayName(item.Project.Name)</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <div class="callout callout-info">
+                                                                            <h5> @Html.DisplayName("Submitter")</h5>
+                                                                            <hr />
+                                                                            <p>  @Html.Display(item.Project.SubmitterId)</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-">
+                                                                        <div class="callout callout-info">
+                                                                            <h5> @Html.DisplayName("Project Manager")</h5>
+                                                                            <hr />
+                                                                            <p>  @Html.Display(DisplayHelper.ChangeUserIdToFullName(item.Project.ProjectManagerId))</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="callout callout-info">
+                                                                    <h5> @Html.DisplayName("Developer")</h5>
+                                                                    <hr />
+                                                                    <p>  @Html.Display(item.Project.DeveloperId)</p>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="callout callout-info">
+                                                                            <h5> @Html.DisplayName("Developer")</h5>
+                                                                            <hr />
+                                                                            <p>  @Html.DisplayName(@DisplayHelper.ChangeUserIdToFullName(item.Project.DeveloperId))</p>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    @*<div class="col">
+                                                                    <div class="callout callout-info">
+                                                                        <h5> @Html.DisplayName("Ticket Priority")</h5>
+                                                                        <hr />
+                                                                        <p>  @Html.DisplayName(DisplayHelper.ChangeTicketPriorityIdToName(Model.Ticket.TicketPriorityId))</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="callout callout-info">
+                                                                        <h5> @Html.DisplayName("Ticket Type")</h5>
+                                                                        <hr />
+                                                                        <p>  @Html.DisplayName(DisplayHelper.ChangeTicketTypeIdToName(Model.Ticket.TicketTypeId))</p>
+                                                                    </div>
+                                                                </div>*@
+                                                                </div>
+
+                                                            </div>
+                                                            <!-- /.card-body -->
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    @using (Html.BeginForm("ProjectSpecialEdit", "Home"))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("ProjectId", item.Project.Id)
+                                        @Html.Hidden("Created", item.Project.Created)
+
+                                        @*@Html.Hidden("DeveloperId", item.Project.DeveloperId)
+                                    @Html.Hidden("SubmitterId", item.Project.SubmitterId)
+                                    @Html.Hidden("ProjectManagerId", item.Project.ProjectManagerId)
+                                    @Html.Hidden("IsArchieved", item.Project.IsArchived)*@
+
+                                        <td>
+                                            @Html.DropDownList("DeveloperId", item.Developer)
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("SubMitterId", item.Submitter)
+                                        </td>
+                                        <td>
+                                            @*@Html.DropDownList("ProjectManagerId", item.ProjectManger)*@
+                                        </td>
+                                        <td>
+                                            <button type="submit" class=" btn btn-outline-dark btn-sm">Save</button>
+                                        </td>
+                                    }
+                                    <td>
+                                        <a href="#" class="nav-link ">
+
+                                            <p>@item.Project.Created </p>
+                                        </a>
+                                    </td>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+
+                                        <td>
+                                            @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
+                                        @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
+                                        @Html.ActionLink("Create New", "Create", "Tickets")*@
+
+                                            @Html.ActionLink("Details", "Details", "Projects", new { id = item.Project.Id }, new { @class = "nav-link" })
+                                            @*@Html.ActionLink("Details", "Projects", new { id = item.Project.Id })*@
+
+
+
+                                        </td>
+                                    }
+
+                                    @if (User.IsInRole("Sub"))
+                                    {
+
+                                        <td>
+                                            @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
+                                        @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
+                                        @Html.ActionLink("Create New", "Create", "Tickets")*@
+                                            @Html.ActionLink("Create Tickets ", "Create", "Tickets", new { projectId = item.Project.Id }, new { @class = "nav-link " })
+
+
+
+
+                                        </td>
+                                    }
+                                </tr>
+
+
+                            }
+
+                        </tbody>
+
+                    </table>
+
+
+
+
 
                 }
 
 
-                Modal body..
             </div>
 
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <!--Tab End -->
+            <!--Tab Begin  -->
+
+            <div class="tab-pane fade" id="Tab2" role="tabpanel" aria-labelledby="product-rating-tab">
+
+                @if (User.IsInRole("Dev") || User.IsInRole("Sub"))
+                {
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Project")
+                                </th>
+
+                                <th>
+                                    @Html.DisplayName("Created")
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ProjectsIn)
+                            {
+                                <tr>
+                                    <td>
+
+                                        <a href="@Url.Action("Details","Projects" ,new { id = item.Id })" class="nav-link ">
+
+                                            <p>@item.Name </p>
+                                        </a>
+
+                                    <td>
+                                        <a href="#" class="nav-link ">
+
+                                            <p>@item.Created </p>
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
+                                    @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Create New", "Create", "Tickets")*@
+
+                                        @if (User.IsInRole("Sub"))
+                                        {
+                                            <a href="@Url.Action("Create", "Tickets", new { projectId = item.Id })" class="nav-link ">
+
+                                                <p>Create Ticket</p>
+                                            </a>
+
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+
+
+                }
+
             </div>
 
+            <!--Tab End -->
+            <!--Tab Begin  -->
+            <div class="tab-pane fade" id="Tab3" role="tabpanel" aria-labelledby="product-rating-tab">
+                @if (User.IsInRole("Dev") || User.IsInRole("Sub"))
+                {
+                    <h2>My Tickets</h2>
+                }
+
+            </div>
+
+            <!--Tab End -->
+            <!--Tab Begin  -->
+
+            <div class="tab-pane fade show active" id="Tab4" role="tabpanel" aria-labelledby="product-rating-tab">
+                @if (User.IsInRole("Admin") || User.IsInRole("PM"))
+                {
+                    <h2>All Tickets</h2>
+                }
+
+
+
+            </div>
+
+            <!--Tab End -->
+            <!--Tab Begin  -->
+
+            <div class="tab-pane fade " id="Tab5" role="tabpanel" aria-labelledby="product-rating-tab">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayName("Tickets")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Created")
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.TicketsIn.Count != 0)
+                        {
+                            foreach (var ticket in Model.TicketsIn)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Dashboard", "Tickets", new { id = ticket.Id })" class="nav-link ">
+
+                                            <p>@ticket.Title </p>
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        <a href="#" class="nav-link ">
+
+                                            <p>@ticket.Created </p>
+                                        </a>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    <a href="#" class="nav-link ">
+                                        <p>No Tickets Assigned Yet</p>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#" class="nav-link ">
+                                        <p>N/A </p>
+                                    </a>
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
         </div>
-    </div>
+    <!--Tab End -->
+
 </div>
+
+
+
+
+@section scripts {
+    <script>
+
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetTicketPriorityPieChatData", "Chart")',
+            dataType: "Json"
+        }).then(function (response) {
+            var pieChartCanvas = $('#pieChart1').get(0).getContext('2d')
+            var pieData = {
+                labels: response.Lables,
+
+                datasets: [
+                    {
+
+                        data: response.Data,
+                        backgroundColor: response.BackgroundColor,
+                    }
+                ]
+            }
+            var pieOptions = {
+                legend: {
+                    display: false
+                }
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            var pieChart = new Chart(pieChartCanvas, {
+                type: 'doughnut',
+                data: pieData,
+                options: pieOptions
+            })
+        });
+
+      //-----------------
+      //- END PIE CHART -
+      //-----------------
+
+    </script>
+
+}

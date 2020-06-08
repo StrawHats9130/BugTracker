@@ -68,8 +68,8 @@
                     </td>
                     <td>
                         @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
-                    @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Create Ticket", "Create", "Ticket", new { projectId = item.Project.ProjectManagerId })*@
+                            @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Create Ticket", "Create", "Ticket", new { projectId = item.Project.ProjectManagerId })*@
 
                     </td>
                     <td></td>
@@ -82,7 +82,7 @@
     </table>
     <div class="card card-success">
         <div class="card-header">
-            <h3 class="card-title">Bar Chart</h3>
+            <h3 class="card-title"> Chart 1</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -103,7 +103,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Browser Usage</h3>
+            <h3 class="card-title">Pie 1</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -184,7 +184,7 @@
     </div>
     <div class="card card-success">
         <div class="card-header">
-            <h3 class="card-title">Bar Chart</h3>
+            <h3 class="card-title">Chart 3</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -1068,6 +1068,490 @@
     <!-- /.content-wrapper -->
 </section>
 
+@{
+    ViewBag.Title = "UserProfile";
+}
+
+<div class="content-wrapper">
+    <h2>User Dashboard</h2>
+
+
+    <!--Chart area-->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Ticket Priority</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="chart-responsive">
+                        <canvas id="pieChart1" height="50"></canvas>
+                    </div>
+
+
+                    <!-- ./chart-responsive -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                    <ul class="chart-legend clearfix">
+
+                        <li><i class="far fa-circle text-danger"></i> Immediate</li>
+                        <li><i class="far fa-circle text-success"></i> 'High</li>
+                        <li><i class="far fa-circle text-warning"></i> Medium</li>
+                        <li><i class="far fa-circle text-info"></i> Low</li>
+                        <li><i class="far fa-circle text-primary"></i> None</li>
+
+                    </ul>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+
+    </div>
+    <!-- Chart area End-->
+    <!--Begin Tabs area  -->
+    <div class="row mt-4">
+        <nav class="w-100">
+            <div class="nav nav-tabs" id="product-tab" role="tablist">
+                <a class="nav-item nav-link active" id="product-rating-tab" data-toggle="tab" href="#Tab1" role="tab" aria-controls="product-rating" aria-selected="false">Project</a>
+                <a class="nav-item nav-link " id="product-rating-tab" data-toggle="tab" href="#Tab2" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Details</a>
+                <a class="nav-item nav-link " id="product-rating-tab" data-toggle="tab" href="#Tab3" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Details</a>
+                <a class="nav-item nav-link " id="product-rating-tab" data-toggle="tab" href="#Tab4" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Details</a>
+                <a class="nav-item nav-link " id="product-rating-tab" data-toggle="tab" href="#Tab5" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Details</a>
+
+            </div>
+        </nav>
+        <!--Tab Begin  -->
+        <div class="tab-content p-3" id="Tab1">
+            <div class="tab-pane fade show active" id="Tickets-Overview" role="tabpanel" aria-labelledby="product-rating-tab">
+
+
+                @if (User.IsInRole("Admin") || User.IsInRole("PM"))
+                {
+
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Project")
+                                </th>
+
+                                <th>
+                                    @Html.DisplayName("Created")
+                                </th>
+
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>
+
+                                </th>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <th></th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ProjectVM)
+                            {
+                                <tr>
+                                    <td>
+
+
+                                        <a href="#" onclick="$('#@item.Project.Id').modal('toggle')" data-toggle="modal" data-target="#@item.Project.Id" class="btn ">@item.Project.Name</a>
+
+                                        <!-- The Modal -->
+                                        <div class="modal" id="@item.Project.Id">
+                                            <div class="modal-dialog modal-xl">
+                                                <div class="modal-content">
+
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">@item.Project.Name</h4>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+
+
+                                                        <div><h3>I hope I can see this</h3></div>
+
+                                                        <div class="card card-success">
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="card-header" style="background-color: cadetblue">
+                                                                        <h3 class="card-title" style="color:chartreuse">Ticket Details</h3>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="card-body" style=" background-color:darkblue">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="callout callout-info">
+                                                                            <h5> @Html.DisplayName("Ticket Title")</h5>
+                                                                            <hr />
+                                                                            <p> @Html.DisplayName(item.Project.Name)</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <div class="callout callout-info">
+                                                                            <h5> @Html.DisplayName("Submitter")</h5>
+                                                                            <hr />
+                                                                            <p>  @Html.Display(item.Project.SubmitterId)</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-">
+                                                                        <div class="callout callout-info">
+                                                                            <h5> @Html.DisplayName("Project Manager")</h5>
+                                                                            <hr />
+                                                                            @*<p>  @Html.Display(DisplayHelper.ChangeUserIdToFullName(item.Project.ProjectManagerId))</p>*@
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="callout callout-info">
+                                                                    <h5> @Html.DisplayName("Developer")</h5>
+                                                                    <hr />
+                                                                    <p>  @Html.Display(item.Project.DeveloperId)</p>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="callout callout-info">
+                                                                            <h5> @Html.DisplayName("Developer")</h5>
+                                                                            <hr />
+                                                                            <p@*>  @Html.DisplayName(@DisplayHelper.ChangeUserIdToFullName(item.Project.DeveloperId))</p>*@
+
+                                                                        </div>
+                                                                    </div>
+                                                                    @*<div class="col">
+                                                                            <div class="callout callout-info">
+                                                                                <h5> @Html.DisplayName("Ticket Priority")</h5>
+                                                                                <hr />
+                                                                                <p>  @Html.DisplayName(DisplayHelper.ChangeTicketPriorityIdToName(Model.Ticket.TicketPriorityId))</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col">
+                                                                            <div class="callout callout-info">
+                                                                                <h5> @Html.DisplayName("Ticket Type")</h5>
+                                                                                <hr />
+                                                                                <p>  @Html.DisplayName(DisplayHelper.ChangeTicketTypeIdToName(Model.Ticket.TicketTypeId))</p>
+                                                                            </div>
+                                                                        </div>*@
+                                                                </div>
+
+                                                            </div>
+                                                            <!-- /.card-body -->
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    @using (Html.BeginForm("ProjectSpecialEdit", "Home"))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("ProjectId", item.Project.Id)
+                                        @Html.Hidden("Created", item.Project.Created)
+
+                                        @*@Html.Hidden("DeveloperId", item.Project.DeveloperId)
+                                            @Html.Hidden("SubmitterId", item.Project.SubmitterId)
+                                            @Html.Hidden("ProjectManagerId", item.Project.ProjectManagerId)
+                                            @Html.Hidden("IsArchieved", item.Project.IsArchived)*@
+
+                                        <td>
+                                            @Html.DropDownList("DeveloperId", item.Developer)
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("SubMitterId", item.Submitter)
+                                        </td>
+                                        <td>
+                                            @*@Html.DropDownList("ProjectManagerId", item.ProjectManger)*@
+                                        </td>
+                                        <td>
+                                            <button type="submit" class=" btn btn-outline-dark btn-sm">Save</button>
+                                        </td>
+                                    }
+                                    <td>
+                                        <a href="#" class="nav-link ">
+
+                                            <p>@item.Project.Created </p>
+                                        </a>
+                                    </td>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+
+                                        <td>
+                                            @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
+                                                @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
+                                                @Html.ActionLink("Create New", "Create", "Tickets")*@
+
+                                            @Html.ActionLink("Details", "Details", "Projects", new { id = item.Project.Id }, new { @class = "nav-link" })
+                                            @*@Html.ActionLink("Details", "Projects", new { id = item.Project.Id })*@
+
+
+
+                                        </td>
+                                    }
+
+                                    @if (User.IsInRole("Sub"))
+                                    {
+
+                                        <td>
+                                            @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
+                                                @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
+                                                @Html.ActionLink("Create New", "Create", "Tickets")*@
+                                            @Html.ActionLink("Create Tickets ", "Create", "Tickets", new { projectId = item.Project.Id }, new { @class = "nav-link " })
+
+
+
+
+                                        </td>
+                                    }
+                                </tr>
+
+
+                            }
+
+                        </tbody>
+
+                    </table>
+
+
+
+
+
+                }
+
+
+            </div>
+        </div>
+        <!--Tab End -->
+        <!--Tab Begin  -->
+        <div class="tab-content p-3" id="Tab2">
+            <div class="tab-pane fade show active" id="Tickets-Overview" role="tabpanel" aria-labelledby="product-rating-tab">
+
+                @if (User.IsInRole("Dev") || User.IsInRole("Sub"))
+                {
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Project")
+                                </th>
+
+                                <th>
+                                    @Html.DisplayName("Created")
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ProjectsIn)
+                            {
+                                <tr>
+                                    <td>
+
+                                        <a href="@Url.Action("Details","Projects" ,new { id = item.Id })" class="nav-link ">
+
+                                            <p>@item.Name </p>
+                                        </a>
+
+                                    <td>
+                                        <a href="#" class="nav-link ">
+
+                                            <p>@item.Created </p>
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        @*@Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
+                                            @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
+                                            @Html.ActionLink("Create New", "Create", "Tickets")*@
+
+                                        @if (User.IsInRole("Sub"))
+                                        {
+                                            <a href="@Url.Action("Create", "Tickets", new { projectId = item.Id })" class="nav-link ">
+
+                                                <p>Create Ticket</p>
+                                            </a>
+
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+
+
+                }
+
+            </div>
+        </div>
+        <!--Tab End -->
+        <!--Tab Begin  -->
+        <div class="tab-content p-3" id="Tab3">
+            <div class="tab-pane fade show active" id="Tickets-Overview" role="tabpanel" aria-labelledby="product-rating-tab">
+                @if (User.IsInRole("Dev") || User.IsInRole("Sub"))
+                {
+                    <h2>My Tickets</h2>
+                }
+
+            </div>
+        </div>
+        <!--Tab End -->
+        <!--Tab Begin  -->
+        <div class="tab-content p-3" id="Tab4">
+            <div class="tab-pane fade show active" id="Tickets-Overview" role="tabpanel" aria-labelledby="product-rating-tab">
+                @if (User.IsInRole("Admin") || User.IsInRole("PM"))
+                {
+                    <h2>All Tickets</h2>
+                }
+
+
+
+            </div>
+        </div>
+        <!--Tab End -->
+        <!--Tab Begin  -->
+        <div class="tab-content p-3" id="Tab5">
+            <div class="tab-pane fade show active" id="Tickets-Overview" role="tabpanel" aria-labelledby="product-rating-tab">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayName("Tickets")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Created")
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.TicketsIn.Count != 0)
+                        {
+                            foreach (var ticket in Model.TicketsIn)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Dashboard", "Tickets", new { id = ticket.Id })" class="nav-link ">
+
+                                            <p>@ticket.Title </p>
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        <a href="#" class="nav-link ">
+
+                                            <p>@ticket.Created </p>
+                                        </a>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    <a href="#" class="nav-link ">
+                                        <p>No Tickets Assigned Yet</p>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#" class="nav-link ">
+                                        <p>N/A </p>
+                                    </a>
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <!--Tab End -->
+
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script>
+
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetTicketPriorityPieChatData", "Chart")',
+            dataType: "Json"
+        }).then(function (response) {
+            var pieChartCanvas = $('#pieChart1').get(0).getContext('2d')
+            var pieData = {
+                labels: response.Lables,
+
+                datasets: [
+                    {
+
+                        data: response.Data,
+                        backgroundColor: response.BackgroundColor,
+                    }
+                ]
+            }
+            var pieOptions = {
+                legend: {
+                    display: false
+                }
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            var pieChart = new Chart(pieChartCanvas, {
+                type: 'doughnut',
+                data: pieData,
+                options: pieOptions
+            })
+        });
+
+      //-----------------
+      //- END PIE CHART -
+      //-----------------
+
+    </script>
+
+}
+
 
 @section scripts {
     <script>
@@ -1222,7 +1706,7 @@
         var salesChartCanvas = $('#barChart').get(0).getContext('2d')
 
         var salesChartData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: ['Test', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
                 {
                     label: 'Digital Goods',
@@ -1292,46 +1776,94 @@
 
     </script>
     <script>
+
+
+         $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetTicketPriorityBarChatData", "Chart")',
+            dataType: "Json"
+        }).then(function (response) {
+            var barChartCanvas = $('#saleChart').get(0).getContext('2d')
+            //var barChartData = jQuery.extend(true, {}, areaChartData)
+            var barChartData = {
+                labels: response.Labels,
+                datasets: [
+                    {
+                        label: response.LabelType1,
+                        backgroundColor: response.BackgroundColor1,
+
+                        data: response.DataSet1
+                    },
+                    {
+                        label: response.LabelType2,
+                        backgroundColor: response.BackgroundColor2,
+
+                        data: response.DataSet2
+                    },
+                    {
+                        label: response.LabelType3,
+                        backgroundColor: response.BackgroundColor3,
+
+                        data: response.DataSet3
+                    },
+                ]
+            }
+
+            var barChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                datasetFill: false
+            }
+
+            var barChart = new Chart(barChartCanvas, {
+                type: 'bar',
+                data: barChartData,
+                options: barChartOptions
+            })
+        });
+
+
+
         //-------------
         //      //- BAR CHART -
         //      //-------------
-        var barChartCanvas = $('#saleChart').get(0).getContext('2d')
-        //var barChartData = jQuery.extend(true, {}, areaChartData)
-        var barChartData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'Digital Goods',
-                    backgroundColor: 'rgba(60,141,188,0.9)',
+        //var barChartCanvas = $('#saleChart').get(0).getContext('2d')
+        ////var barChartData = jQuery.extend(true, {}, areaChartData)
+        //var barChartData = {
+        //    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        //    datasets: [
+        //        {
+        //            label: 'Digital Goods',
+        //            backgroundColor: 'rgba(60,141,188,0.9)',
 
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                },
-                {
-                    label: 'Electronics',
-                    backgroundColor: 'rgba(210, 214, 222, 1)',
+        //            data: [28, 48, 40, 19, 86, 27, 90]
+        //        },
+        //        {
+        //            label: 'Electronics',
+        //            backgroundColor: 'rgba(210, 214, 222, 1)',
 
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
-                    label: 'TestBar',
-                    backgroundColor: 'gold',
+        //            data: [65, 59, 80, 81, 56, 55, 40]
+        //        },
+        //        {
+        //            label: 'TestBar',
+        //            backgroundColor: 'gold',
 
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                },
-            ]
-        }
+        //            data: [65, 59, 80, 81, 56, 55, 40]
+        //        },
+        //    ]
+        //}
 
-        var barChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            datasetFill: false
-        }
+        //var barChartOptions = {
+        //    responsive: true,
+        //    maintainAspectRatio: false,
+        //    datasetFill: false
+        //}
 
-        var barChart = new Chart(barChartCanvas, {
-            type: 'bar',
-            data: barChartData,
-            options: barChartOptions
-        })
+        //var barChart = new Chart(barChartCanvas, {
+        //    type: 'bar',
+        //    data: barChartData,
+        //    options: barChartOptions
+        //})
 
         //-------------
         //- PIE CHART -
@@ -1364,7 +1896,7 @@
                     label: 'TestBar',
                     backgroundColor: 'gold',
 
-                    data: [65, 59, 80, 81, 56, 55, 40]
+                    data: [5, 40, 33, 12, 24, 33, 70]
                 },
             ]
         }
@@ -1381,9 +1913,9 @@
             options: barChartOptions
         })
 
-                            //-------------
-                            //- PIE CHART -
-                            //-------------
+                                //-------------
+                                //- PIE CHART -
+                                //-------------
     </script>
 
 }
