@@ -1779,6 +1779,43 @@
     <script>
 
 
+         @*$.ajax({
+            type: "POST",
+            url: '@Url.Action("GetTicketPriorityBarChatData", "Chart")',
+            dataType: "Json"
+        }).then(function (response) {
+            var barChartCanvas = $('#saleChart').get(0).getContext('2d')
+            //var barChartData = jQuery.extend(true, {}, areaChartData)
+            var barChartData = {
+                labels: response.Labels,
+                datasets: [
+                    foreach(var tr in response){
+
+                    {
+
+                        label: tr.LabelType1,
+                        backgroundColor: tr.BackgroundColor1,
+
+                        data: tr.DataSet1
+                    },
+        }
+
+                ]
+            }
+
+            var barChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                datasetFill: false
+            }
+
+            var barChart = new Chart(barChartCanvas, {
+                type: 'bar',
+                data: barChartData,
+                options: barChartOptions
+            })
+        });*@
+
          $.ajax({
             type: "POST",
             url: '@Url.Action("GetTicketPriorityBarChatData", "Chart")',
@@ -1824,51 +1861,50 @@
         });
 
 
+    //-------------
+    //      //- BAR CHART -
+    //      //-------------
+    var barChartCanvas = $('#saleChart').get(0).getContext('2d')
+    //var barChartData = jQuery.extend(true, {}, areaChartData)
+    var barChartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [
+            {
+                label: 'Digital Goods',
+                backgroundColor: 'rgba(60,141,188,0.9)',
 
-        //-------------
-        //      //- BAR CHART -
-        //      //-------------
-        //var barChartCanvas = $('#saleChart').get(0).getContext('2d')
-        ////var barChartData = jQuery.extend(true, {}, areaChartData)
-        //var barChartData = {
-        //    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        //    datasets: [
-        //        {
-        //            label: 'Digital Goods',
-        //            backgroundColor: 'rgba(60,141,188,0.9)',
+                data: [28, 48, 40, 19, 86, 27, 90]
+            },
+            {
+                label: 'Electronics',
+                backgroundColor: 'rgba(210, 214, 222, 1)',
 
-        //            data: [28, 48, 40, 19, 86, 27, 90]
-        //        },
-        //        {
-        //            label: 'Electronics',
-        //            backgroundColor: 'rgba(210, 214, 222, 1)',
+                data: [65, 59, 80, 81, 56, 55, 40]
+            },
+            {
+                label: 'TestBar',
+                backgroundColor: 'gold',
 
-        //            data: [65, 59, 80, 81, 56, 55, 40]
-        //        },
-        //        {
-        //            label: 'TestBar',
-        //            backgroundColor: 'gold',
+                data: [65, 59, 80, 81, 56, 55, 40]
+            },
+        ]
+    }
 
-        //            data: [65, 59, 80, 81, 56, 55, 40]
-        //        },
-        //    ]
-        //}
+    var barChartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        datasetFill: false
+    }
 
-        //var barChartOptions = {
-        //    responsive: true,
-        //    maintainAspectRatio: false,
-        //    datasetFill: false
-        //}
+    var barChart = new Chart(barChartCanvas, {
+        type: 'bar',
+        data: barChartData,
+        options: barChartOptions
+    })
 
-        //var barChart = new Chart(barChartCanvas, {
-        //    type: 'bar',
-        //    data: barChartData,
-        //    options: barChartOptions
-        //})
-
-        //-------------
-        //- PIE CHART -
-        //-------------
+    //-------------
+    //- PIE CHART -
+    //-------------
     </script>
 
 
@@ -1914,8 +1950,8 @@
             options: barChartOptions
         })
 
-                                        //-------------
-                                        //- PIE CHART -
-                                        //-------------
+                                                                //-------------
+                                                                //- PIE CHART -
+                                                                //-------------
     </script>
 }

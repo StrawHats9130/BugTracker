@@ -62,9 +62,10 @@
         <nav class="w-100">
             <div class="nav nav-tabs" id="product-tab" role="tablist">
                 <a class="nav-item nav-link active" id="product-rating-tab" data-toggle="tab" href="#Tab1" role="tab" aria-controls="product-rating" aria-selected="false">Project</a>
-                <a class="nav-item nav-link " id="product-rating-tab" data-toggle="tab" href="#Tab2" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Details</a>
+                <a class="nav-item nav-link " id="product-rating-tab" data-toggle="tab" href="#Tab2" role="tab" aria-controls="product-rating" aria-selected="false">Tickets</a>
+
                 <a class="nav-item nav-link " id="product-rating-tab" data-toggle="tab" href="#Tab3" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Details</a>
-                <a class="nav-item nav-link " id="product-rating-tab" data-toggle="tab" href="#Tab4" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Details</a>
+               
                 <a class="nav-item nav-link " id="product-rating-tab" data-toggle="tab" href="#Tab5" role="tab" aria-controls="product-rating" aria-selected="false">Ticket Details</a>
 
             </div>
@@ -284,13 +285,6 @@
                 }
 
 
-            </div>
-
-            <!--Tab End -->
-            <!--Tab Begin  -->
-
-            <div class="tab-pane fade" id="Tab2" role="tabpanel" aria-labelledby="product-rating-tab">
-
                 @if (User.IsInRole("Dev") || User.IsInRole("Sub"))
                 {
 
@@ -350,35 +344,13 @@
 
                 }
 
-            </div>
-
-            <!--Tab End -->
-            <!--Tab Begin  -->
-            <div class="tab-pane fade" id="Tab3" role="tabpanel" aria-labelledby="product-rating-tab">
-                @if (User.IsInRole("Dev") || User.IsInRole("Sub"))
-                {
-                    <h2>My Tickets</h2>
-                }
 
             </div>
 
             <!--Tab End -->
             <!--Tab Begin  -->
 
-            <div class="tab-pane fade show active" id="Tab4" role="tabpanel" aria-labelledby="product-rating-tab">
-                @if (User.IsInRole("Admin") || User.IsInRole("PM"))
-                {
-                    <h2>All Tickets</h2>
-                }
-
-
-
-            </div>
-
-            <!--Tab End -->
-            <!--Tab Begin  -->
-
-            <div class="tab-pane fade " id="Tab5" role="tabpanel" aria-labelledby="product-rating-tab">
+            <div class="tab-pane fade" id="Tab2" role="tabpanel" aria-labelledby="product-rating-tab">
 
                 <table class="table">
                     <thead>
@@ -433,6 +405,27 @@
                         }
                     </tbody>
                 </table>
+            </div>
+
+            <!--Tab End -->
+            <!--Tab Begin  -->
+            <div class="tab-pane fade" id="Tab3" role="tabpanel" aria-labelledby="product-rating-tab">
+                Empty Tab
+
+                My Tickets
+            </div>
+
+            <!--Tab End -->
+            <!--Tab Begin  -->
+
+
+            <!--Tab End -->
+            <!--Tab Begin  -->
+
+            <div class="tab-pane fade " id="Tab5" role="tabpanel" aria-labelledby="product-rating-tab">
+
+                ticket stuff
+
 
             </div>
         </div>

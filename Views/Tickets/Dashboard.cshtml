@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="card-header" style="background-color: cadetblue">
-                                <h3 class="card-title" style="color:chartreuse">Ticket Details</h3>
+                                <h3 class="card-title" style="color:black">Ticket Details</h3>
                             </div>
                         </div>
                     </div>
@@ -43,13 +43,7 @@
                                     <p> @Html.DisplayName(Model.Ticket.Title)</p>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="callout callout-info">
-                                    <h5> @Html.DisplayName("Submitter")</h5>
-                                    <hr />
-                                    <p>  @Html.DisplayFor(m => Model.Ticket.Submitter.UserName)</p>
-                                </div>
-                            </div>
+
                             <div class="col-">
                                 <div class="callout callout-info">
                                     <h5> @Html.DisplayName("Project Name")</h5>
@@ -58,6 +52,32 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="callout callout-info">
+                                    <h5> @Html.DisplayName("Project Manager")</h5>
+                                    <hr />
+                                    <p>  @Html.DisplayName(DisplayHelper.ChangeUserIdToFullName(Model.Ticket.Project.ProjectManagerId))</p>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="callout callout-info">
+                                    <h5> @Html.DisplayName("Developer")</h5>
+                                    <hr />
+                                    <p>  @Html.DisplayFor(m => Model.Ticket.Developer.UserName)</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="callout callout-info">
+                                    <h5> @Html.DisplayName("Submitter")</h5>
+                                    <hr />
+                                    <p>  @Html.DisplayFor(m => Model.Ticket.Submitter.UserName)</p>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="callout callout-info">
                             <h5> @Html.DisplayName("Description")</h5>
                             <hr />

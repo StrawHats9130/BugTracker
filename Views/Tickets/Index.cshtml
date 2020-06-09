@@ -171,8 +171,7 @@
                         {
                             <tr>
                                 <td> @Html.DisplayName(item.Ticket.Title)</td>
-                                @*<td> @Html.DisplayFor(modelItem => item.Ticket.Developer.FirstName)</td>*@
-                                @*<td><span class="badge badge-warning">@Html.DisplayFor(modelItem => item.Ticket.TicketStatus.Name)</span></td>*@
+                               
                                 @using (Html.BeginForm("SpecialEdit", "Tickets"))
                                 {
                                     @Html.AntiForgeryToken()
@@ -223,10 +222,7 @@
                                 }
                                 <td> @Html.DisplayName(item.Ticket.Created.ToString("MMM, dd yyyy"))</td>
                                 <td>
-                                    @if (User.IsInRole("Admin") || User.IsInRole("PM"))
-                                    {
-                                        @*@Html.ActionLink("Delete", "Delete", new { id = item.Ticket.Id })*@
-                                    }
+                                  
                                     @Html.ActionLink("Edit", "Edit", new { id = item.Ticket.Id }) |
                                     @Html.ActionLink("Details", "Details", new { id = item.Ticket.Id }) |
                                     @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Ticket.Id })
@@ -234,15 +230,7 @@
 
                             </tr>
                         }
-                        @*<tr>
-                                <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                                <td>Samsung Smart TV</td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                                <td>
-                                    <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                                </td>
-                                <td></td>
-                            </tr>*@
+                       
 
                     </tbody>
                 </table>
@@ -250,10 +238,7 @@
             <!-- /.table-responsive -->
         </div>
         <!-- /.card-body -->
-        @*<div class="card-footer clearfix">
-                <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-                <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
-            </div>*@
+       
         <!-- /.card-footer -->
     </div>
     <!-- /.card -->

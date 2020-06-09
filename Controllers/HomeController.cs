@@ -73,7 +73,7 @@ namespace BugTracker.Controllers
                         Project = project,
                         Developer = new SelectList(developers, "Id", "Email", project.DeveloperId),
                         Submitter = new SelectList(submitters, "Id", "Email", project.SubmitterId),
-                        ProjectManger = new SelectList(projectManagers, "Id", project.ProjectManagerId)
+                        ProjectManger = new SelectList(projectManagers, "Id","Email",project.ProjectManagerId)
 
                     });
 
@@ -173,9 +173,9 @@ namespace BugTracker.Controllers
                     projectVMs.Add(new ProjectViewModel
                     {
                         Project = project,
-                        Developer = new SelectList(developers, "Id","Email",project.DeveloperId),
-                        Submitter = new SelectList(submitters,"Id","Email",project.SubmitterId),
-                        ProjectManger = new SelectList(projectManagers,"Id",project.ProjectManagerId)
+                        Developer = new SelectList(developers, "Id","FullName",project.DeveloperId),
+                        Submitter = new SelectList(submitters,"Id","FullName",project.SubmitterId),
+                        ProjectManger = new SelectList(projectManagers,"Id","FullName",project.ProjectManagerId)
 
                     }); 
 
@@ -203,13 +203,9 @@ namespace BugTracker.Controllers
 
 
 
-            //var model = new UserProfileViewModel();
-            //var userId = User.Identity.GetUserId();
-            //var user = db.Users.Find(userId);
-            //    model.AvitarPath = user.AvatarPath;
-            //    model.FullName = user.FullName;
+           
             model.Id = userId;
-            model.ProjectsIn = projHelper.ListUserProjects(userId);
+            model.ProjectsIn = projHelper.ListMyProjects();
             model.ProjectsOut = db.Projects.ToList();
             model.TicketsIn = ticketHelper.ListMyTickets();
             model.TicetsOut = ticketHelper.ListTicketsNotBelongingToUser();
@@ -282,7 +278,7 @@ namespace BugTracker.Controllers
                         Project = project,
                         Developer = new SelectList(developers, "Id", "Email", project.DeveloperId),
                         Submitter = new SelectList(submitters, "Id", "Email", project.SubmitterId),
-                        ProjectManger = new SelectList(projectManagers, "Id", project.ProjectManagerId)
+                        ProjectManger = new SelectList(projectManagers, "Id","Email" , project.ProjectManagerId)
 
                     });
 
@@ -340,6 +336,7 @@ namespace BugTracker.Controllers
             return View();
         }
 
+        
         public ActionResult Contact()
         {
             
@@ -409,31 +406,31 @@ namespace BugTracker.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult ProjectSpecialEdit(int ticketId, int ticketStatusId, string developerId, int ticketTypeId, int ticketPriorityId)
+        public ActionResult ProjectSpecialEdit(int projectId,  string developerId, string submitterId, string projectManagerId)
         {
-            var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticketId);
+            var oldProject = db.Projects.AsNoTracking().FirstOrDefault(t => t.Id == projectId);
 
 
-            var newTicket = db.Tickets.Find(ticketId);
+            var newProject = db.Projects.Find(projectId);
             if (developerId == "")
             {
-                newTicket.DeveloperId = null;
+                newProject.DeveloperId = null;
 
             }
             else
             {
-                newTicket.DeveloperId = developerId;
+                newProject.DeveloperId = developerId;
             }
-            newTicket.TicketTypeId = ticketTypeId;
-            newTicket.TicketPriorityId = ticketPriorityId;
-            newTicket.TicketStatusId = ticketStatusId;
-            newTicket.Updated = DateTime.Now;
+            newProject.DeveloperId= developerId;
+            newProject.SubmitterId = submitterId;
+            newProject.ProjectManagerId = projectManagerId;
+            newProject.Updated = DateTime.Now;
             db.SaveChanges();
 
             //historyHelper.ManageHistoryRecordCreation(oldTicket, newTicket);
             //notificationHelper.ManageNotifications(oldTicket, newTicket);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Dashboard");
         }
     }
 }

@@ -45,9 +45,9 @@
             <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
-            <li class="nav-item">
+            @*<li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
+            </li>*@
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="@Url.Action("DashBoard","Home")" class="nav-link">Home</a>
             </li>
@@ -57,6 +57,7 @@
 
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
+
                     <i class="far fa-comments"></i>
                     @if (MessageHelper.GetUnreadNotifications().Count > 0)
                     {
@@ -65,37 +66,48 @@
                     }
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    @foreach (var notification in MessageHelper.GetUnreadNotifications())
-                    {
-                        //using (Html.BeginForm("Dismiss", "Home", FormMethod.Post))
-                        {
-                            <div class="row">
-                                <div class="col">
-                                    <a href="#" class="dropdown-item">
-                                        <!-- Message Start -->
-                                        <div class="media">
 
-                                            <img src="~/Images/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                                            <div class="media-body">
-                                                <h3 class="dropdown-item-title">
-                                                    @notification.Sender
-                                                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                                </h3>
-                                                <p class="text-sm ">@notification.NotificationBody</p>
-                                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>@notification.Created</p>
+                    @if (MessageHelper.GetUnreadNotifications().Count == 0)
+                    {
+                        <p>no Notifications at this time</p>
+                    }
+                    else
+                    {
+                        foreach (var notification in MessageHelper.GetUnreadNotifications())
+                        {
+                            //using (Html.BeginForm("Dismiss", "Home", FormMethod.Post))
+                            {
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="#" class="dropdown-item">
+                                            <!-- Message Start -->
+                                            <div class="media">
+
+                                                <img src="~/Images/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                                <div class="media-body">
+                                                    <h3 class="dropdown-item-title">
+                                                        @notification.Sender
+                                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                                    </h3>
+                                                    <p class="text-sm ">@notification.NotificationBody</p>
+                                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>@notification.Created</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+
+                                    </div>
 
                                 </div>
 
-                            </div>
-
+                            }
                         }
                     }
+
+                  
                     <!-- Message End -->
                 </div>
+
 
 
             </li>
@@ -113,11 +125,6 @@
 
             @*Notifications Dropdown Menu*@
      
-        <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                <i class="fas fa-th-large"></i>
-            </a>
-        </li>
         </ul>
         </nav>
         <!-- /.navbar -->
@@ -127,7 +134,7 @@
             <a href="index3.html" class="brand-link">
                 <img src="~/Images/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                      style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-light">Bug Tracker</span>
             </a>
 
             <!-- Sidebar -->
@@ -180,12 +187,7 @@
                                         <p>Edit Profile</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="@Url.Action("Contact","Home")" class="nav-link ">
-                                        <i class="far fa-phone nav-icon"></i>
-                                        <p>Contact Me </p>
-                                    </a>
-                                </li>
+                               
                                 <li class="nav-item">
                                     <a href="@Url.Action("Index","Projects")" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
@@ -198,12 +200,7 @@
                                         <p>User Dashboard</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="@Url.Action("Index","Tickets")" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tickets</p>
-                                    </a>
-                                </li>
+                                
                                 <li class="nav-item">
                                     <a href="@Url.Action("Index","TicketComments")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -254,19 +251,7 @@
         @RenderBody()
 
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-        <!-- Main Footer -->
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2019 <a href="//adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.0.4
-            </div>
-        </footer>
+      
     </div>
     <!-- ./wrapper -->
     <!-- REQUIRED SCRIPTS -->
