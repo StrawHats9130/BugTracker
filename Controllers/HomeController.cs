@@ -124,6 +124,8 @@ namespace BugTracker.Controllers
             return View(model);
         }
 
+
+        
         public ActionResult Dashboard()
         {
 
@@ -336,7 +338,7 @@ namespace BugTracker.Controllers
             return View();
         }
 
-        
+        [AllowAnonymous]
         public ActionResult Contact()
         {
             

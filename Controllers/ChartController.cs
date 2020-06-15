@@ -41,13 +41,13 @@ namespace BugTracker.Controllers
             var y = 10;
 
 
-            barChartViewModel.BackgroundColor1 = "Gold";
-            barChartViewModel.BackgroundColor2 = "Red";
-            barChartViewModel.BackgroundColor3 = "Green";
+            barChartViewModel.BackgroundColor1 = "Blue";
+            barChartViewModel.BackgroundColor2 = "Green";
+            
 
-            barChartViewModel.LabelType1 = "Test Label 1";
-            barChartViewModel.LabelType2 = "Test Label 2";
-            barChartViewModel.LabelType3 = "Test Label 3";
+            barChartViewModel.LabelType1 = "Demo Cat 1";
+            barChartViewModel.LabelType2 = "Demo Cat 2";
+           
 
             foreach (var priority in priorities)
             {
@@ -65,13 +65,7 @@ namespace BugTracker.Controllers
                 barChartViewModel.DataSet2.Add(ticketPriorityCount);
                 x += 7;
             }
-            foreach (var priority in priorities)
-            {
-                var ticketPriorityCount = ticket.Where(tp => tp.TicketPriorityId == priority.Id).ToList().Count;
-                ticketPriorityCount += i;
-                barChartViewModel.DataSet3.Add(ticketPriorityCount);
-                y += 6;
-            }
+           
 
 
             return Json(barChartViewModel);
