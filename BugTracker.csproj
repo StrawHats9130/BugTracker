@@ -230,6 +230,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\AdminLTELogo.png" />
+    <Content Include="Images\POWfavicon-32x32.png" />
     <Content Include="Images\user1-128x128.jpg" />
     <Content Include="Images\user2-160x160.jpg" />
     <Content Include="Images\user3-128x128.jpg" />
