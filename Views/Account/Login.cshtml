@@ -135,6 +135,13 @@
                                     }
                                 </div>
                             </div>
+                            <div class="row  p-4 text-md-center ">
+                               
+                                    @Html.ActionLink("Reset Password  ", "ForgotPassword")  
+                                    @Html.ActionLink("| Register Here | ", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "text-center ", id = "registerLink" })  
+                                    @Html.ActionLink(" Contact ", "Contact", "Home", routeValues: null, htmlAttributes: new { @class = " " })
+                                
+                            </div>
                         </div>
                     </div>
 
@@ -149,18 +156,6 @@
         </div>*@
                     <!-- /.social-auth-links -->
 
-                    <p class="">
-                        @*<a href="@Url.Action("ForgotPassword","Account")">I forgot my password</a>*@
-                        @Html.ActionLink("Reset Password", "ForgotPassword")
-                    </p>
-                    <p class="">
-                        @*<a href="register.html" class="text-center">Regiser as a user account</a>*@
-                        @Html.ActionLink("Register Here", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "text-center ", id = "registerLink" })
-                    </p>
-                    <p class="">
-                        @Html.ActionLink("Contact ", "Contact", "Home", routeValues: null, htmlAttributes: new { @class = "nav-link " })
-                        
-                    </p>
 
                 </div>
 
