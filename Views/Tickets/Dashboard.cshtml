@@ -33,83 +33,93 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
 
-                    <div class="card-body" style=" background-color:darkblue">
-                        <div class="row">
-                            <div class="col">
-                                <div class="callout callout-info">
-                                    <h5> @Html.DisplayName("Ticket Title")</h5>
-                                    <hr />
-                                    <p> @Html.DisplayName(Model.Ticket.Title)</p>
-                                </div>
-                            </div>
+                        <div class="col">
 
-                            <div class="col-">
-                                <div class="callout callout-info">
-                                    <h5> @Html.DisplayName("Project Name")</h5>
-                                    <hr />
-                                    <p>  @Html.DisplayFor(m => Model.Ticket.Project.Name)</p>
+                            <div class="card-body" style=" background-color:darkblue">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="callout callout-info">
+                                            <h5> @Html.DisplayName("Ticket Title")</h5>
+                                            <hr />
+                                            <p> @Html.DisplayName(Model.Ticket.Title)</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-">
+                                        <div class="callout callout-info">
+                                            <h5> @Html.DisplayName("Project Name")</h5>
+                                            <hr />
+                                            <p>  @Html.DisplayFor(m => Model.Ticket.Project.Name)</p>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="callout callout-info">
+                                            <h5> @Html.DisplayName("Project Manager")</h5>
+                                            <hr />
+                                            <p>  @Html.DisplayName(DisplayHelper.ChangeUserIdToFullName(Model.Ticket.Project.ProjectManagerId))</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="callout callout-info">
+                                            <h5> @Html.DisplayName("Developer")</h5>
+                                            <hr />
+                                            <p>  @Html.DisplayFor(m => Model.Ticket.Developer.UserName)</p>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="callout callout-info">
+                                            <h5> @Html.DisplayName("Submitter")</h5>
+                                            <hr />
+                                            <p>  @Html.DisplayFor(m => Model.Ticket.Submitter.UserName)</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="callout callout-info">
+                                    <h5> @Html.DisplayName("Description")</h5>
+                                    <hr />
+                                    <p>  @Html.DisplayFor(m => Model.Ticket.Description)</p>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="callout callout-info">
+                                            <h5> @Html.DisplayName("Ticket Status")</h5>
+                                            <hr />
+                                            <p>  @Html.DisplayName(DisplayHelper.ChangeTicketStatusIdToName(Model.Ticket.TicketStatusId))</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="callout callout-info">
+                                            <h5> @Html.DisplayName("Ticket Priority")</h5>
+                                            <hr />
+                                            <p>  @Html.DisplayName(DisplayHelper.ChangeTicketPriorityIdToName(Model.Ticket.TicketPriorityId))</p>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="callout callout-info">
+                                            <h5> @Html.DisplayName("Ticket Type")</h5>
+                                            <hr />
+                                            <p>  @Html.DisplayName(DisplayHelper.ChangeTicketTypeIdToName(Model.Ticket.TicketTypeId))</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                             </div>
+                            <!-- /.card-body -->
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="callout callout-info">
-                                    <h5> @Html.DisplayName("Project Manager")</h5>
-                                    <hr />
-                                    <p>  @Html.DisplayName(DisplayHelper.ChangeUserIdToFullName(Model.Ticket.Project.ProjectManagerId))</p>
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="callout callout-info">
-                                    <h5> @Html.DisplayName("Developer")</h5>
-                                    <hr />
-                                    <p>  @Html.DisplayFor(m => Model.Ticket.Developer.UserName)</p>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="callout callout-info">
-                                    <h5> @Html.DisplayName("Submitter")</h5>
-                                    <hr />
-                                    <p>  @Html.DisplayFor(m => Model.Ticket.Submitter.UserName)</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="callout callout-info">
-                            <h5> @Html.DisplayName("Description")</h5>
-                            <hr />
-                            <p>  @Html.DisplayFor(m => Model.Ticket.Description)</p>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="callout callout-info">
-                                    <h5> @Html.DisplayName("Ticket Status")</h5>
-                                    <hr />
-                                    <p>  @Html.DisplayName(DisplayHelper.ChangeTicketStatusIdToName(Model.Ticket.TicketStatusId))</p>
-
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="callout callout-info">
-                                    <h5> @Html.DisplayName("Ticket Priority")</h5>
-                                    <hr />
-                                    <p>  @Html.DisplayName(DisplayHelper.ChangeTicketPriorityIdToName(Model.Ticket.TicketPriorityId))</p>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="callout callout-info">
-                                    <h5> @Html.DisplayName("Ticket Type")</h5>
-                                    <hr />
-                                    <p>  @Html.DisplayName(DisplayHelper.ChangeTicketTypeIdToName(Model.Ticket.TicketTypeId))</p>
-                                </div>
-                            </div>
-                        </div>
-
+                   
+                    
                     </div>
-                    <!-- /.card-body -->
+                
+                
                 </div>
 
 

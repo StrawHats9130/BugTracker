@@ -82,8 +82,8 @@
 
         <td>
             @Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = item.Id }) |
-            @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Create Ticket", "Create", "Ticket", new { projectId = item.ProjectManagerId })
+            @Html.ActionLink("Edit Project", "Edit", new { id = item.Id }) 
+            @*@Html.ActionLink("Create Ticket", "Create", "Tickets", new { projectId = item.Id},new {@class="nav-link" })*@
             
 
         </td>

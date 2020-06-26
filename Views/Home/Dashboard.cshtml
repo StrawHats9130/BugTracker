@@ -9,7 +9,7 @@
     ViewBag.Title = "UserProfile";
 }
 
-<div>
+
     <div class="content-wrapper p-2">
         <h2>User Dashboard</h2>
 
@@ -172,6 +172,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
+
                                                                     <div class="row">
                                                                         <div class="col">
                                                                             <div class="callout callout-info">
@@ -400,6 +401,7 @@
 
                                                         <!-- Modal body -->
                                                         <div class="modal-body">
+
                                                             <div class="card card-success">
 
                                                                 <div class="row">
@@ -684,8 +686,8 @@
                                             <td> @Html.DisplayName(ticket1.Ticket.Created.ToString("MMM, dd yyyy"))</td>
                                             <td>
 
-                                                @Html.ActionLink("Edit", "Edit", new { id = ticket1.Ticket.Id }) |
-                                                @Html.ActionLink("Details", "Details", new { id = ticket1.Ticket.Id }) |
+                                                @*@Html.ActionLink("Edit", "Edit", "Tickets", new { id = ticket1.Ticket.Id }, new { @class = "nav-link" }) |
+                                                @Html.ActionLink("Details", "Details", new { id = ticket1.Ticket.Id }) |*@
                                                 @Html.ActionLink("Dashboard", "Dashboard", "Tickets", new { id = ticket1.Ticket.Id }, new { @class = "nav-link" })
 
                                             </td>

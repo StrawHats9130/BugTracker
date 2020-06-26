@@ -1,68 +1,158 @@
-﻿    @model BugTracker.Models.Project
+﻿@using BugTracker.Helpers
+@using BugTracker.Models  
+
+  @model Project
 
 @{
     ViewBag.Title = "Details";
 }
-<div class="content-wrapper">
+    <div class="content-wrapper">
 
-<h2>Details</h2>
 
-<div>
-    <h4>Project</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+        <div class="card card-success">
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <div class="row">
+                <div class="col">
+                    <div class="card-header" style="background-color: cadetblue">
+                        <h3 class="card-title" style="color: black">Project Details</h3>
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <div class="card-body" style=" background-color:darkblue">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="callout callout-info">
+                            <h5> @Html.DisplayName("Project Title")</h5>
+                            <hr />
+                            <p> @Html.DisplayName(Model.Name)</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="callout callout-info">
+                            <h5> @Html.DisplayName("Submitter")</h5>
+                            <hr />
+                            @Html.DisplayName(DisplayHelper.ChangeUserIdToFullName(Model.SubmitterId))
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="callout callout-info">
+                            <h5> @Html.DisplayName("Project Manager")</h5>
+                            <hr />
+                            <p>  @Html.DisplayName(DisplayHelper.ChangeUserIdToFullName(Model.ProjectManagerId))</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="callout callout-info">
+                            <h5> @Html.DisplayName("Developer")</h5>
+                            <hr />
+                            <p>  @Html.DisplayName(@DisplayHelper.ChangeUserIdToFullName(Model.DeveloperId))</p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="callout callout-info">
+                            <h5> @Html.DisplayName("Description")</h5>
+                            <hr />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectManagerId)
-        </dt>
+                            <p> @Model.Description</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="callout callout-info">
+                            <!-- START ACCORDION & CAROUSEL-->
 
-        <dd>
-            @Html.DisplayFor(model => model.ProjectManagerId)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
+                            <div class="row">
+                                <div class="col">
 
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Updated)
-        </dt>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <div id="accordion">
+                                            <!-- we are adding the .class so bootstrap.js collapse plugin detects it -->
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h4 class="card-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                            Tickets
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseOne" class="panel-collapse collapse in">
+                                                    <div class="card-body">
 
-        <dd>
-            @Html.DisplayFor(model => model.Updated)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsArchived)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsArchived)
-        </dd>
+                                                        @if (Model.Tickets.Count == 0)
+                                                        {
+                                                            <h1> No tickets at this time. </h1>
+                                                        }
+                                                        else
+                                                        {
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            @Html.DisplayName("Ticets")
+                                                                        </th>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-</div>
+                                                                        <th>
+                                                                            @Html.DisplayName("Created")
+                                                                        </th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var ticket in Model.Tickets)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+
+                                                                                <a href="@Url.Action("Dashboard", "Tickets", new { id = ticket.Id })" class="nav-link ">
+
+                                                                                    <p>@ticket.Title </p>
+                                                                                </a>
+
+                                                                            <td>
+                                                                                @Html.DisplayName(ticket.Created.ToString("MMM, dd, yyyy"))
+
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <!-- /.card -->
+                                </div>
+
+                            </div>
+                            <!-- /.row -->
+                            <!-- END ACCORDION & CAROUSEL-->
+                        </div>
+                    </div>
+
+                </div>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-info" }) 
+                    @Html.ActionLink("Back to List", "Dashboard", "Home", null, new { @class = "btn btn-outline-info" })
+                    @Html.ActionLink("Manage Members", "ManageProjectLevelUsers", new { id = Model.Id }, new { @class = "btn btn-outline-info" }) 
+                </p>
+            </div>
+            <!-- /.card-body -->
+        </div>
+
+
+
+
+       
+    </div>
